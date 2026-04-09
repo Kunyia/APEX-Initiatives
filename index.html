@@ -1149,7 +1149,7 @@ body::before {
             <div class="team-school">Monsf Tibin · Pine Creek HS</div>
           </div>
         </div>
-        <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:20px;">Contact: monsf.tibin@apexinitiatives.org</p>
+        <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:20px;">Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="65080a0b16034b110c070c0b250415001d0c0b0c110c04110c1300164b0a1702">[email&#160;protected]</a></p>
       </div>
     </div>
   </section>
@@ -1391,7 +1391,7 @@ body::before {
   <div class="branch-back" style="background:#0d0900;"><button class="back-btn" onclick="goHome()">← Back to APEX Initiatives</button></div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ——— MOBILE MENU ———
 function toggleMenu() {
   const hamburger = document.getElementById('hamburger');
@@ -1495,15 +1495,11 @@ function animateCounter(el) {
 // ——— REVEAL OBSERVER ———
 let countersDone = false;
 function initReveal() {
+  // Reveal observer — only handles fade-in, never touches counters
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('revealed');
-        const counters = entry.target.querySelectorAll('.counter');
-        if (counters.length && !countersDone) {
-          countersDone = true;
-          counters.forEach(c => animateCounter(c));
-        }
         observer.unobserve(entry.target);
       }
     });
@@ -1512,6 +1508,9 @@ function initReveal() {
     el.classList.remove('revealed');
     observer.observe(el);
   });
+
+  // Counter observer — watches the whole ribbon, fires ALL counters at once
+  countersDone = false;
   const statsRibbon = document.getElementById('sec-stats');
   if (statsRibbon) {
     const statsObs = new IntersectionObserver((entries) => {
@@ -1522,19 +1521,10 @@ function initReveal() {
           statsObs.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.2 });
     statsObs.observe(statsRibbon);
   }
 }
 
 // ——— NAV SCROLL ———
-window.addEventListener('scroll', () => {
-  document.getElementById('nav').style.background =
-    window.scrollY > 40 ? 'rgba(7,7,26,0.97)' : 'rgba(7,7,26,0.85)';
-});
-
-document.addEventListener('DOMContentLoaded', initReveal);
-initReveal();
-</script>
-</body>
-</html>
+window.addEventListener('
