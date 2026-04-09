@@ -775,9 +775,288 @@ body::before {
   .team-grid { grid-template-columns: 1fr 1fr; }
   .donate-amounts { grid-template-columns: 1fr 1fr; }
 }
+
+/* ——— GLOBAL TEXT OVERFLOW FIX ——— */
+* { word-break: break-word; }
+h1, h2, h3, h4, .why-quote, .branch-h1, .section-title {
+  overflow-wrap: break-word; word-wrap: break-word; hyphens: auto;
+}
+.step-body p, .branch-card p, .proof-text, .vol-left p, .about-text p,
+.offer-tile p, .value-desc, .why-text, .support-way p, .team-school,
+.footer-brand p { overflow-wrap: break-word; }
+.branch-feature { overflow: hidden; }
+.why-bg-text { overflow: hidden; max-width: 100vw; }
+.proof-author-detail { word-break: break-all; }
+
+/* ——— SUCCESS MODAL ——— */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(4, 4, 18, 0.85);
+  backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+
+.modal-card {
+  background: #0d0d24;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  padding: 48px 40px 40px;
+  max-width: 480px; width: 100%;
+  text-align: center;
+  position: relative;
+  transform: translateY(20px) scale(0.97);
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+}
+.modal-overlay.open .modal-card { transform: translateY(0) scale(1); }
+
+.modal-close {
+  position: absolute; top: 16px; right: 18px;
+  background: none; border: none; color: rgba(255,255,255,0.3);
+  font-size: 20px; cursor: pointer; line-height: 1;
+  transition: color 0.2s; padding: 4px 8px; border-radius: 6px;
+}
+.modal-close:hover { color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.06); }
+
+.modal-icon-ring {
+  width: 72px; height: 72px; border-radius: 50%;
+  margin: 0 auto 24px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.modal-icon-ring::before {
+  content: '';
+  position: absolute; inset: -6px; border-radius: 50%;
+  border: 1px solid; opacity: 0.25;
+  animation: ringPulse 2.5s ease infinite;
+}
+@keyframes ringPulse { 0%,100%{transform:scale(1);opacity:0.25} 50%{transform:scale(1.12);opacity:0.08} }
+
+.modal-icon-ring.purple { background: rgba(127,119,221,0.12); }
+.modal-icon-ring.purple::before { border-color: var(--purple); }
+.modal-icon-ring.green  { background: rgba(29,158,117,0.12); }
+.modal-icon-ring.green::before  { border-color: var(--green); }
+.modal-icon-ring.amber  { background: rgba(239,159,39,0.12); }
+.modal-icon-ring.amber::before  { border-color: var(--amber); }
+
+.modal-icon-ring svg { width: 28px; height: 28px; }
+
+.modal-eyebrow {
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  margin-bottom: 10px; font-weight: 600;
+}
+.modal-eyebrow.purple { color: var(--purple-light); }
+.modal-eyebrow.green  { color: var(--green-light); }
+.modal-eyebrow.amber  { color: var(--amber-light); }
+
+.modal-title {
+  font-family: var(--font-head); font-size: 26px; font-weight: 800;
+  letter-spacing: -0.8px; line-height: 1.15; margin-bottom: 12px; color: #fff;
+}
+.modal-body {
+  font-size: 14px; color: var(--muted); line-height: 1.75;
+  margin-bottom: 28px; max-width: 360px; margin-left: auto; margin-right: auto;
+}
+.modal-body strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+
+.modal-details {
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 16px 20px;
+  margin-bottom: 28px; display: flex; flex-direction: column; gap: 10px;
+}
+.modal-detail-row {
+  display: flex; align-items: flex-start; gap: 10px; text-align: left;
+}
+.modal-detail-dot {
+  width: 5px; height: 5px; border-radius: 50%; margin-top: 7px; flex-shrink: 0;
+}
+.modal-detail-dot.purple { background: var(--purple-light); }
+.modal-detail-dot.green  { background: var(--green-light); }
+.modal-detail-dot.amber  { background: var(--amber-light); }
+.modal-detail-text { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+.modal-detail-text strong { color: rgba(255,255,255,0.8); font-weight: 500; }
+
+.modal-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.modal-btn-primary {
+  border: none; color: #fff; padding: 11px 24px; border-radius: 22px;
+  font-size: 14px; font-family: var(--font-body); cursor: pointer;
+  transition: all 0.2s; font-weight: 500;
+}
+.modal-btn-primary.purple { background: var(--purple-dark); }
+.modal-btn-primary.purple:hover { background: var(--purple); transform: translateY(-1px); }
+.modal-btn-primary.green  { background: #0F6E56; }
+.modal-btn-primary.green:hover  { background: var(--green); transform: translateY(-1px); }
+.modal-btn-primary.amber  { background: #854F0B; }
+.modal-btn-primary.amber:hover  { background: var(--amber); transform: translateY(-1px); }
+
+.modal-btn-ghost {
+  background: none; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.5);
+  padding: 11px 22px; border-radius: 22px; font-size: 14px;
+  font-family: var(--font-body); cursor: pointer; transition: all 0.2s;
+}
+.modal-btn-ghost:hover { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.8); }
+
+.modal-footnote {
+  font-size: 11px; color: rgba(255,255,255,0.2); margin-top: 20px;
+}
+
+/* info modal (contact/partners/stories) */
+.modal-info-row {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 16px; text-align: left; margin-bottom: 8px;
+}
+.modal-info-label { font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+.modal-info-val { font-size: 14px; color: rgba(255,255,255,0.85); font-weight: 500; }
+
+@media (max-width: 480px) {
+  .modal-card { padding: 36px 22px 28px; border-radius: 18px; }
+  .modal-title { font-size: 22px; }
+  .modal-actions { flex-direction: column; }
+  .modal-btn-primary, .modal-btn-ghost { width: 100%; text-align: center; }
+}
 </style>
 </head>
 <body>
+
+<!-- ══════════════ SUCCESS MODAL ══════════════ -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOnBg(event)">
+  <div class="modal-card" id="modal-card">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+
+    <!-- VOLUNTEER SUBMITTED -->
+    <div id="modal-volunteer" class="modal-variant" style="display:none">
+      <div class="modal-icon-ring green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#5DCAA5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <div class="modal-eyebrow green">Application received</div>
+      <h2 class="modal-title">You're already one of us.</h2>
+      <p class="modal-body">Your application is in. We've seen a lot of them — and the fact that you're here means something. <strong>Expect a message from our team within 48 hours.</strong></p>
+      <div class="modal-details">
+        <div class="modal-detail-row"><span class="modal-detail-dot green"></span><span class="modal-detail-text"><strong>Next step:</strong> Keep an eye on your inbox — we'll match you with a program branch and onboarding coordinator.</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-dot green"></span><span class="modal-detail-text"><strong>Questions?</strong> Reach us anytime at hello@apexinitiatives.org</span></div>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn-primary green" onclick="closeModal()">Back to APEX</button>
+        <button class="modal-btn-ghost" onclick="closeModal(); scrollToSection('about')">Meet the team</button>
+      </div>
+      <p class="modal-footnote">Every mentor on our team started exactly where you are now.</p>
+    </div>
+
+    <!-- SAT SIGNUP -->
+    <div id="modal-sat" class="modal-variant" style="display:none">
+      <div class="modal-icon-ring purple">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#AFA9EC" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <div class="modal-eyebrow purple">APEX SAT · Request received</div>
+      <h2 class="modal-title">Your spot is being held.</h2>
+      <p class="modal-body">We're already looking for your ideal mentor match. <strong>You'll hear from us within 2 business days</strong> with next steps and your program schedule.</p>
+      <div class="modal-details">
+        <div class="modal-detail-row"><span class="modal-detail-dot purple"></span><span class="modal-detail-text"><strong>Mentor matching:</strong> We pair you based on target school, score goal, and timeline — not just availability.</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-dot purple"></span><span class="modal-detail-text"><strong>Cost:</strong> Absolutely nothing. Now or ever.</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-dot purple"></span><span class="modal-detail-text"><strong>Questions:</strong> sat@apexinitiatives.org</span></div>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn-primary purple" onclick="closeModal()">Back to APEX SAT</button>
+        <button class="modal-btn-ghost" onclick="closeModal(); goHome()">Explore all programs</button>
+      </div>
+      <p class="modal-footnote">The student we place you with has been exactly where you are.</p>
+    </div>
+
+    <!-- HEALTH SIGNUP -->
+    <div id="modal-health" class="modal-variant" style="display:none">
+      <div class="modal-icon-ring green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#5DCAA5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <div class="modal-eyebrow green">APEX Health · Welcome</div>
+      <h2 class="modal-title">Your healthcare journey starts now.</h2>
+      <p class="modal-body">You're in. <strong>We'll reach out within 2 business days</strong> to get you matched with a mentor and enrolled in your first workshop or session.</p>
+      <div class="modal-details">
+        <div class="modal-detail-row"><span class="modal-detail-dot green"></span><span class="modal-detail-text"><strong>What's next:</strong> An onboarding email with your mentor's profile and your first session options.</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-dot green"></span><span class="modal-detail-text"><strong>No experience needed:</strong> We meet you where you are, whatever stage you're at.</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-dot green"></span><span class="modal-detail-text"><strong>Questions:</strong> health@apexinitiatives.org</span></div>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn-primary green" onclick="closeModal()">Back to APEX Health</button>
+        <button class="modal-btn-ghost" onclick="closeModal(); goHome()">Explore all programs</button>
+      </div>
+      <p class="modal-footnote">Your mentor has navigated this path. Now they're handing you the map.</p>
+    </div>
+
+    <!-- BUSINESS SIGNUP -->
+    <div id="modal-biz" class="modal-variant" style="display:none">
+      <div class="modal-icon-ring amber">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FAC775" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+      </div>
+      <div class="modal-eyebrow amber">APEX Business · You're in</div>
+      <h2 class="modal-title">The seat was always yours.</h2>
+      <p class="modal-body">Your application is confirmed. <strong>Expect an email within 2 business days</strong> with your program track, mentor profile, and first session details.</p>
+      <div class="modal-details">
+        <div class="modal-detail-row"><span class="modal-detail-dot amber"></span><span class="modal-detail-text"><strong>What's next:</strong> We'll match you with a mentor from a top business program aligned with your track.</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-dot amber"></span><span class="modal-detail-text"><strong>No prerequisites:</strong> Whether you know zero or know a little, you belong here.</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-dot amber"></span><span class="modal-detail-text"><strong>Questions:</strong> business@apexinitiatives.org</span></div>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn-primary amber" onclick="closeModal()">Back to APEX Business</button>
+        <button class="modal-btn-ghost" onclick="closeModal(); goHome()">Explore all programs</button>
+      </div>
+      <p class="modal-footnote">First in your family to do this? Good. We'll make sure you're not the last.</p>
+    </div>
+
+    <!-- DONATE -->
+    <div id="modal-donate" class="modal-variant" style="display:none">
+      <div class="modal-icon-ring amber">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FAC775" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div class="modal-eyebrow amber">Donation · Thank you</div>
+      <h2 class="modal-title">You just changed someone's trajectory.</h2>
+      <p class="modal-body">Your gift goes directly into programming — no executive salaries, no overhead. <strong>100% reaches students.</strong> A confirmation will land in your inbox shortly.</p>
+      <div class="modal-details">
+        <div class="modal-detail-row"><span class="modal-detail-dot amber"></span><span class="modal-detail-text"><strong>Tax receipt:</strong> Your deductible receipt will arrive via email. APEX is a registered 501(c)(3).</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-dot amber"></span><span class="modal-detail-text"><strong>Impact report:</strong> We send donors a quarterly update on what your dollars built.</span></div>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn-primary amber" onclick="closeModal()">Back to APEX</button>
+        <button class="modal-btn-ghost" onclick="closeModal(); scrollToSection('proof')">See who you're helping</button>
+      </div>
+      <p class="modal-footnote">Questions about your donation? donate@apexinitiatives.org</p>
+    </div>
+
+    <!-- STORY SUBMISSION -->
+    <div id="modal-story" class="modal-variant" style="display:none">
+      <div class="modal-icon-ring purple">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#AFA9EC" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div class="modal-eyebrow purple">Share your story</div>
+      <h2 class="modal-title">Your words will open doors.</h2>
+      <p class="modal-body">Every testimonial on this page has convinced another student to take the leap. Send your story to <strong>stories@apexinitiatives.org</strong> and we'll feature it here.</p>
+      <div class="modal-actions">
+        <button class="modal-btn-primary purple" onclick="closeModal()">Got it</button>
+      </div>
+    </div>
+
+    <!-- CONTACT / INFO -->
+    <div id="modal-contact" class="modal-variant" style="display:none">
+      <div class="modal-icon-ring purple">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#AFA9EC" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div class="modal-eyebrow purple">Get in touch</div>
+      <h2 class="modal-title">We're one email away.</h2>
+      <p class="modal-body">Reach the right person directly — we respond within 24 hours on business days.</p>
+      <div class="modal-info-row"><span style="font-size:18px">🤝</span><div><div class="modal-info-label">Partnerships & Institutions</div><div class="modal-info-val">partnerships@apexinitiatives.org</div></div></div>
+      <div class="modal-info-row"><span style="font-size:18px">💛</span><div><div class="modal-info-label">Donations & Giving</div><div class="modal-info-val">donate@apexinitiatives.org</div></div></div>
+      <div class="modal-info-row" style="margin-bottom:24px"><span style="font-size:18px">✉️</span><div><div class="modal-info-label">General Enquiries</div><div class="modal-info-val">hello@apexinitiatives.org</div></div></div>
+      <div class="modal-actions">
+        <button class="modal-btn-primary purple" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <!-- NAV -->
 <nav class="nav" id="nav">
@@ -1077,7 +1356,7 @@ body::before {
             <div><div class="proof-author-name">Kofi T.</div><div class="proof-author-detail">Ghana → Wharton applicant</div></div>
           </div>
         </div>
-        <div class="proof-add reveal" onclick="alert('Email us at stories@apexinitiatives.org')">
+        <div class="proof-add reveal" onclick="showModal('story')">
           <div class="proof-add-icon">✦</div>
           <p><strong>Add your story</strong></p>
           <p>Share your APEX experience — your words help the next student find their path.</p>
@@ -1149,7 +1428,7 @@ body::before {
             <div class="team-school">Monsf Tibin · Pine Creek HS</div>
           </div>
         </div>
-        <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:20px;">Contact: monsf.tibin@apexinitiatives.org</p>
+        <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:20px;">Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="65080a0b16034b110c070c0b250415001d0c0b0c110c04110c1300164b0a1702">[email&#160;protected]</a></p>
       </div>
     </div>
   </section>
@@ -1204,7 +1483,7 @@ body::before {
           </select>
         </div>
         <div class="form-field"><label>Why do you want to volunteer? (optional)</label><textarea placeholder="What drove you here?"></textarea></div>
-        <button class="btn-submit-green" onclick="alert('Application received! Our team will reach out within 48 hours. Thank you!')">Submit application →</button>
+        <button class="btn-submit-green" onclick="showModal('volunteer')">Submit application →</button>
       </div>
     </div>
   </section>
@@ -1227,13 +1506,13 @@ body::before {
           <div class="support-way-icon">🔁</div>
           <h3>Monthly giving</h3>
           <p>Become a sustaining supporter and help us plan programming with reliable funding — as little as $10/month makes a difference.</p>
-          <button class="support-way-btn" onclick="alert('Monthly giving portal coming soon! Email us at donate@apexinitiatives.org')">Set up recurring →</button>
+          <button class="support-way-btn" onclick="showModal('contact')">Set up recurring →</button>
         </div>
         <div class="support-way reveal">
           <div class="support-way-icon">🏢</div>
           <h3>Institutional partnership</h3>
           <p>Schools, foundations, companies, and universities can partner to co-deliver programming, sponsor cohorts, or refer students.</p>
-          <button class="support-way-btn" onclick="alert('Email us at partnerships@apexinitiatives.org')">Start a partnership →</button>
+          <button class="support-way-btn" onclick="showModal('contact')">Start a partnership →</button>
         </div>
       </div>
       <div class="donate-widget reveal" id="donate-widget">
@@ -1247,7 +1526,7 @@ body::before {
         </div>
         <div class="donate-input-row">
           <input type="text" placeholder="Or enter a custom amount..." />
-          <button class="btn-donate" onclick="alert('Thank you! Redirecting to secure payment portal...')">Donate now →</button>
+          <button class="btn-donate" onclick="showModal('donate')">Donate now →</button>
         </div>
         <p class="tax-note">APEX Initiatives · 501(c)(3) Nonprofit · All donations are tax-deductible</p>
       </div>
@@ -1277,8 +1556,8 @@ body::before {
       <div class="footer-col">
         <h4>Support</h4>
         <a onclick="scrollToSection('support')">Donate</a>
-        <a onclick="alert('Email: partnerships@apexinitiatives.org')">Partner with us</a>
-        <a onclick="alert('Contact: hello@apexinitiatives.org')">Contact</a>
+        <a onclick="showModal('contact')">Partner with us</a>
+        <a onclick="showModal('contact')">Contact</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -1317,7 +1596,7 @@ body::before {
       <div class="signup-field"><input type="text" placeholder="Country / Location" /></div>
       <div class="signup-field"><select><option>SAT prep (full program)</option><option>AP tutoring only</option><option>College consulting</option><option>Essay review</option><option>Webinars only</option></select></div>
       <div class="signup-field"><input type="text" placeholder="Current SAT score (if any)" /></div>
-      <button class="btn-signup pur" onclick="alert('You\'re on the list! Expect an email within 2 business days.')">Request a spot →</button>
+      <button class="btn-signup pur" onclick="showModal('sat')">Request a spot →</button>
     </div>
   </div>
   <div class="branch-back"><button class="back-btn" onclick="goHome()">← Back to APEX Initiatives</button></div>
@@ -1351,7 +1630,7 @@ body::before {
       <div class="signup-field"><input type="email" placeholder="Email address" /></div>
       <div class="signup-field"><input type="text" placeholder="Country / Location" /></div>
       <div class="signup-field"><select><option>Health literacy workshops</option><option>First aid & CPR training</option><option>Pre-health mentorship</option><option>Career panels & webinars</option><option>Mental health support</option></select></div>
-      <button class="btn-signup grn" onclick="alert('Welcome to APEX Health! We\'ll reach out within 2 business days.')">Get started →</button>
+      <button class="btn-signup grn" onclick="showModal('health')">Get started →</button>
     </div>
   </div>
   <div class="branch-back" style="background:#041209;"><button class="back-btn" onclick="goHome()">← Back to APEX Initiatives</button></div>
@@ -1385,13 +1664,30 @@ body::before {
       <div class="signup-field"><input type="email" placeholder="Email address" /></div>
       <div class="signup-field"><input type="text" placeholder="Country / Location" /></div>
       <div class="signup-field"><select><option>Financial literacy</option><option>Entrepreneurship bootcamp</option><option>Career readiness</option><option>Business mentorship</option><option>Pitch competitions</option><option>Self-paced course</option></select></div>
-      <button class="btn-signup amb" onclick="alert('Welcome to APEX Business! We\'ll reach out within 2 business days.')">Get started →</button>
+      <button class="btn-signup amb" onclick="showModal('biz')">Get started →</button>
     </div>
   </div>
   <div class="branch-back" style="background:#0d0900;"><button class="back-btn" onclick="goHome()">← Back to APEX Initiatives</button></div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ——— MODAL ———
+function showModal(type) {
+  document.querySelectorAll('.modal-variant').forEach(v => v.style.display = 'none');
+  const variant = document.getElementById('modal-' + type);
+  if (variant) variant.style.display = 'block';
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOnBg(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
 // ——— MOBILE MENU ———
 function toggleMenu() {
   const hamburger = document.getElementById('hamburger');
@@ -1495,15 +1791,11 @@ function animateCounter(el) {
 // ——— REVEAL OBSERVER ———
 let countersDone = false;
 function initReveal() {
+  // Reveal observer — only handles fade-in, never touches counters
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('revealed');
-        const counters = entry.target.querySelectorAll('.counter');
-        if (counters.length && !countersDone) {
-          countersDone = true;
-          counters.forEach(c => animateCounter(c));
-        }
         observer.unobserve(entry.target);
       }
     });
@@ -1512,6 +1804,9 @@ function initReveal() {
     el.classList.remove('revealed');
     observer.observe(el);
   });
+
+  // Counter observer — watches the whole ribbon, fires ALL counters at once
+  countersDone = false;
   const statsRibbon = document.getElementById('sec-stats');
   if (statsRibbon) {
     const statsObs = new IntersectionObserver((entries) => {
@@ -1522,19 +1817,10 @@ function initReveal() {
           statsObs.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.2 });
     statsObs.observe(statsRibbon);
   }
 }
 
 // ——— NAV SCROLL ———
-window.addEventListener('scroll', () => {
-  document.getElementById('nav').style.background =
-    window.scrollY > 40 ? 'rgba(7,7,26,0.97)' : 'rgba(7,7,26,0.85)';
-});
-
-document.addEventListener('DOMContentLoaded', initReveal);
-initReveal();
-</script>
-</body>
-</html>
+window.addEventListener('
