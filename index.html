@@ -30,12 +30,10 @@
 html { scroll-behavior: smooth; }
 body { font-family: var(--font-body); background: var(--bg); color: var(--text); overflow-x: hidden; }
 
-/* ——— SCROLLBAR ——— */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--purple-dark); border-radius: 2px; }
 
-/* ——— GRAIN OVERLAY ——— */
 body::before {
   content: '';
   position: fixed; inset: 0;
@@ -46,7 +44,7 @@ body::before {
 /* ——— NAV ——— */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  height: 64px; display: flex; align-items: center; padding: 0 2.5rem;
+  height: 64px; display: flex; align-items: center; padding: 0 1.5rem;
   background: rgba(7,7,26,0.85); backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
   transition: background 0.3s;
@@ -68,9 +66,7 @@ body::before {
   transition: color 0.2s, background 0.2s;
 }
 .nav-dropdown-btn:hover { color: #fff; background: rgba(255,255,255,0.07); }
-.nav-dropdown-btn .arrow {
-  display: inline-block; font-size: 10px; transition: transform 0.2s;
-}
+.nav-dropdown-btn .arrow { display: inline-block; font-size: 10px; transition: transform 0.2s; }
 .nav-dropdown:hover .arrow { transform: rotate(180deg); }
 .nav-dropdown-menu {
   position: absolute; top: calc(100% + 10px); left: 50%;
@@ -106,15 +102,56 @@ body::before {
 }
 .nav-cta:hover { background: var(--purple); transform: scale(1.03); }
 
+/* Mobile hamburger */
+.nav-hamburger {
+  display: none; flex-direction: column; gap: 5px; cursor: pointer;
+  padding: 8px; margin-left: auto; background: none; border: none;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: rgba(255,255,255,0.7); border-radius: 2px;
+  transition: all 0.3s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
+  background: rgba(7,7,26,0.98); backdrop-filter: blur(20px);
+  z-index: 999; overflow-y: auto; padding: 24px 1.5rem 40px;
+  flex-direction: column; gap: 8px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu-section { margin-bottom: 8px; }
+.mobile-menu-label {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); padding: 0 4px; margin-bottom: 8px; display: block;
+}
+.mobile-menu-item {
+  display: block; padding: 13px 16px; border-radius: 10px;
+  font-size: 15px; color: rgba(255,255,255,0.8); cursor: pointer;
+  transition: background 0.15s, color 0.15s; width: 100%;
+  background: none; border: none; font-family: var(--font-body); text-align: left;
+}
+.mobile-menu-item:hover, .mobile-menu-item:active { background: rgba(255,255,255,0.06); color: #fff; }
+.mobile-menu-divider { height: 1px; background: var(--border); margin: 8px 0; }
+.mobile-menu-cta {
+  display: block; margin-top: 16px; padding: 14px;
+  background: var(--purple-dark); border: none; color: #fff;
+  border-radius: 12px; font-size: 15px; font-family: var(--font-body);
+  cursor: pointer; text-align: center; width: 100%;
+}
+
 /* ——— SECTIONS ——— */
 .section { display: none; padding-top: 64px; }
 .section.active { display: block; }
 
-/* ——— HERO (HOME) ——— */
+/* ——— HERO ——— */
 .hero {
   min-height: 100vh; display: flex; flex-direction: column;
   align-items: center; justify-content: center; text-align: center;
-  padding: 100px 2rem 60px; position: relative; overflow: hidden;
+  padding: 100px 1.5rem 60px; position: relative; overflow: hidden;
 }
 .hero-glow {
   position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
@@ -133,20 +170,19 @@ body::before {
   background: rgba(127,119,221,0.1); border: 1px solid rgba(127,119,221,0.25);
   color: var(--purple-light); font-size: 11.5px; padding: 5px 14px;
   border-radius: 20px; text-transform: uppercase; letter-spacing: 1.5px;
-  margin-bottom: 28px;
-  animation: fadeUp 0.8s ease forwards;
+  margin-bottom: 28px; animation: fadeUp 0.8s ease forwards;
 }
 .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-light); animation: pulse 2s infinite; }
 @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
 .hero h1 {
-  font-family: var(--font-head); font-size: clamp(46px, 7vw, 88px);
-  font-weight: 800; line-height: 1.0; letter-spacing: -3px;
+  font-family: var(--font-head); font-size: clamp(38px, 7vw, 88px);
+  font-weight: 800; line-height: 1.05; letter-spacing: -2px;
   max-width: 900px; margin: 0 auto 28px;
   animation: fadeUp 0.8s 0.1s ease both;
 }
 .hero h1 .line2 { color: var(--purple-light); display: block; }
 .hero-sub {
-  font-size: 18px; color: var(--muted); max-width: 540px;
+  font-size: clamp(15px, 4vw, 18px); color: var(--muted); max-width: 540px;
   margin: 0 auto 40px; line-height: 1.7;
   animation: fadeUp 0.8s 0.2s ease both;
 }
@@ -159,7 +195,6 @@ body::before {
   padding: 14px 32px; border-radius: 28px; font-size: 15px;
   font-family: var(--font-body); cursor: pointer;
   transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-  box-shadow: 0 0 0 rgba(83,74,183,0);
 }
 .btn-glow:hover { background: var(--purple); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(83,74,183,0.4); }
 .btn-ghost {
@@ -180,19 +215,19 @@ body::before {
 @keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
 
 /* ——— VIDEO SECTION ——— */
-.video-section { padding: 80px 2rem; background: var(--bg2); position: relative; }
+.video-section { padding: 60px 1.5rem; background: var(--bg2); position: relative; }
 .video-section-inner { max-width: 900px; margin: 0 auto; }
 .section-tag {
   font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
   color: rgba(255,255,255,0.3); margin-bottom: 16px; display: block;
 }
 .section-title {
-  font-family: var(--font-head); font-size: clamp(28px, 4vw, 42px);
+  font-family: var(--font-head); font-size: clamp(24px, 5vw, 42px);
   font-weight: 700; line-height: 1.15; margin-bottom: 12px; letter-spacing: -1px;
 }
-.section-sub { font-size: 16px; color: var(--muted); line-height: 1.65; margin-bottom: 40px; max-width: 560px; }
+.section-sub { font-size: 15px; color: var(--muted); line-height: 1.65; margin-bottom: 40px; max-width: 560px; }
 .video-frame {
-  position: relative; aspect-ratio: 16/9; border-radius: 20px;
+  position: relative; aspect-ratio: 16/9; border-radius: 16px;
   overflow: hidden; border: 1px solid var(--border);
   background: #0a0a1e; cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s;
@@ -221,7 +256,7 @@ body::before {
 }
 
 /* ——— WHY THIS EXISTS ——— */
-.why-section { padding: 100px 2rem; background: var(--bg); position: relative; overflow: hidden; }
+.why-section { padding: 80px 1.5rem; background: var(--bg); position: relative; overflow: hidden; }
 .why-bg-text {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
   font-family: var(--font-head); font-size: 260px; font-weight: 800;
@@ -230,18 +265,18 @@ body::before {
 }
 .why-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 .why-quote {
-  font-family: var(--font-head); font-size: clamp(24px, 3vw, 36px);
+  font-family: var(--font-head); font-size: clamp(22px, 3vw, 36px);
   font-weight: 700; line-height: 1.2; letter-spacing: -1px;
 }
 .why-quote em { color: var(--purple-light); font-style: normal; }
 .why-content { display: flex; flex-direction: column; gap: 28px; }
-.why-stat-row { display: flex; gap: 20px; }
+.why-stat-row { display: flex; gap: 12px; flex-wrap: wrap; }
 .why-stat-box {
-  flex: 1; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 20px;
+  flex: 1; min-width: 80px; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 16px;
 }
-.why-stat-num { font-family: var(--font-head); font-size: 32px; font-weight: 800; color: #fff; }
-.why-stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.why-stat-num { font-family: var(--font-head); font-size: 28px; font-weight: 800; color: #fff; }
+.why-stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; }
 .why-text { font-size: 15px; color: var(--muted); line-height: 1.75; }
 .why-origin {
   background: rgba(127,119,221,0.06); border: 1px solid rgba(127,119,221,0.15);
@@ -251,28 +286,28 @@ body::before {
 .why-origin p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; font-style: italic; }
 .why-origin cite { font-size: 12px; color: var(--purple-light); display: block; margin-top: 8px; font-style: normal; }
 
-/* ——— ANIMATED STATS ——— */
+/* ——— STATS ——— */
 .stats-ribbon {
   background: var(--bg3); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-  padding: 50px 2rem; overflow: hidden; position: relative;
+  padding: 40px 1.5rem; overflow: hidden; position: relative;
 }
-.stats-track { display: flex; justify-content: space-around; max-width: 1100px; margin: 0 auto; }
-.stat-item { text-align: center; }
+.stats-track { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; max-width: 1100px; margin: 0 auto; }
+.stat-item { text-align: center; flex: 1; min-width: 100px; }
 .stat-num {
-  font-family: var(--font-head); font-size: clamp(40px, 5vw, 60px);
+  font-family: var(--font-head); font-size: clamp(36px, 5vw, 60px);
   font-weight: 800; letter-spacing: -2px; color: #fff;
   display: flex; align-items: baseline; justify-content: center; gap: 2px;
 }
 .stat-num .suffix { font-size: 0.6em; color: var(--purple-light); }
-.stat-label { font-size: 13px; color: var(--muted); margin-top: 6px; }
+.stat-label { font-size: 12px; color: var(--muted); margin-top: 6px; }
 
 /* ——— JOURNEY ——— */
-.journey-section { padding: 100px 2rem; background: var(--bg2); }
+.journey-section { padding: 80px 1.5rem; background: var(--bg2); }
 .journey-inner { max-width: 900px; margin: 0 auto; }
-.journey-header { text-align: center; margin-bottom: 60px; }
-.program-chooser { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 48px; }
+.journey-header { text-align: center; margin-bottom: 40px; }
+.program-chooser { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 40px; }
 .prog-choice {
-  border-radius: var(--r); padding: 20px; cursor: pointer;
+  border-radius: var(--r); padding: 18px 12px; cursor: pointer;
   border: 2px solid transparent; transition: all 0.25s; text-align: center;
   background: rgba(255,255,255,0.03);
 }
@@ -283,33 +318,33 @@ body::before {
 .prog-choice.green-theme:hover, .prog-choice.green-theme.active { border-color: var(--green); background: rgba(29,158,117,0.08); }
 .prog-choice.amber-theme { border-color: rgba(239,159,39,0.2); }
 .prog-choice.amber-theme:hover, .prog-choice.amber-theme.active { border-color: var(--amber); background: rgba(239,159,39,0.08); }
-.prog-choice-icon { font-size: 28px; margin-bottom: 10px; }
-.prog-choice h3 { font-family: var(--font-head); font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-.prog-choice p { font-size: 12px; color: var(--muted); }
+.prog-choice-icon { font-size: 24px; margin-bottom: 8px; }
+.prog-choice h3 { font-family: var(--font-head); font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.prog-choice p { font-size: 11px; color: var(--muted); }
 .journey-flow { display: none; }
 .journey-flow.active { display: block; animation: fadeUp 0.4s ease; }
 .journey-steps { display: flex; flex-direction: column; gap: 0; }
 .journey-step {
-  display: flex; gap: 24px; align-items: flex-start;
-  padding: 24px 0; border-bottom: 1px solid var(--border);
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 20px 0; border-bottom: 1px solid var(--border);
   opacity: 0; transform: translateY(12px);
   transition: opacity 0.4s, transform 0.4s;
 }
 .journey-step.revealed { opacity: 1; transform: translateY(0); }
 .step-num {
-  flex: 0 0 40px; height: 40px; border-radius: 50%;
+  flex: 0 0 36px; height: 36px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-head); font-size: 14px; font-weight: 800;
+  font-family: var(--font-head); font-size: 13px; font-weight: 800;
 }
 .step-num.purple { background: rgba(127,119,221,0.15); color: var(--purple-light); }
 .step-num.green { background: rgba(29,158,117,0.15); color: var(--green-light); }
 .step-num.amber { background: rgba(239,159,39,0.15); color: var(--amber-light); }
-.step-body { flex: 1; }
-.step-body h4 { font-family: var(--font-head); font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-.step-body p { font-size: 14px; color: var(--muted); line-height: 1.65; }
-.step-action { margin-top: 12px; }
+.step-body { flex: 1; min-width: 0; }
+.step-body h4 { font-family: var(--font-head); font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.step-body p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+.step-action { margin-top: 10px; }
 .step-btn {
-  border: none; padding: 8px 18px; border-radius: 20px; font-size: 13px;
+  border: none; padding: 8px 16px; border-radius: 20px; font-size: 12px;
   cursor: pointer; font-family: var(--font-body); transition: all 0.2s;
 }
 .step-btn.purple { background: rgba(127,119,221,0.15); color: var(--purple-light); }
@@ -319,11 +354,11 @@ body::before {
 .step-btn.amber { background: rgba(239,159,39,0.15); color: var(--amber-light); }
 .step-btn.amber:hover { background: rgba(239,159,39,0.3); }
 
-/* ——— BRANCHES (main cards) ——— */
-.branches-section { padding: 100px 2rem; background: var(--bg); }
-.branches-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 50px; }
+/* ——— BRANCHES ——— */
+.branches-section { padding: 80px 1.5rem; background: var(--bg); }
+.branches-grid { max-width: 1100px; margin: 40px auto 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .branch-card {
-  border-radius: 20px; padding: 32px; cursor: pointer;
+  border-radius: 20px; padding: 28px; cursor: pointer;
   border: 1px solid rgba(255,255,255,0.07);
   transition: transform 0.25s, box-shadow 0.25s;
   position: relative; overflow: hidden;
@@ -338,44 +373,44 @@ body::before {
 .branch-card.health-card { background: linear-gradient(160deg, #0e231a 0%, #06110d 100%); }
 .branch-card.biz-card { background: linear-gradient(160deg, #1e1500 0%, #0e0c00 100%); }
 .branch-icon-wrap {
-  width: 48px; height: 48px; border-radius: 14px;
+  width: 44px; height: 44px; border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 22px; margin-bottom: 20px;
+  font-size: 20px; margin-bottom: 16px;
 }
 .branch-icon-wrap.pur { background: rgba(127,119,221,0.18); }
 .branch-icon-wrap.grn { background: rgba(29,158,117,0.18); }
 .branch-icon-wrap.amb { background: rgba(239,159,39,0.18); }
-.branch-card h3 { font-family: var(--font-head); font-size: 20px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.5px; }
-.branch-card p { font-size: 13.5px; color: var(--muted); line-height: 1.65; margin-bottom: 20px; }
+.branch-card h3 { font-family: var(--font-head); font-size: 18px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; }
+.branch-card p { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
 .branch-explore { font-size: 13px; display: flex; align-items: center; gap: 6px; font-weight: 500; }
 .branch-explore.pur { color: var(--purple-light); }
 .branch-explore.grn { color: var(--green-light); }
 .branch-explore.amb { color: var(--amber-light); }
 .branch-explore .arr { transition: transform 0.2s; }
 .branch-card:hover .arr { transform: translateX(5px); }
-.branch-features { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+.branch-features { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
 .branch-feature { font-size: 12px; color: rgba(255,255,255,0.5); display: flex; align-items: center; gap: 8px; }
-.feat-dot { width: 4px; height: 4px; border-radius: 50%; }
+.feat-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
 .feat-dot.pur { background: var(--purple-light); }
 .feat-dot.grn { background: var(--green-light); }
 .feat-dot.amb { background: var(--amber-light); }
 
 /* ——— SOCIAL PROOF ——— */
-.proof-section { padding: 100px 2rem; background: var(--bg2); }
+.proof-section { padding: 80px 1.5rem; background: var(--bg2); }
 .proof-inner { max-width: 1100px; margin: 0 auto; }
-.proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 50px; }
+.proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
 .proof-card {
   background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 26px;
+  border-radius: var(--r); padding: 22px;
   transition: border-color 0.2s, transform 0.2s;
 }
 .proof-card:hover { border-color: rgba(127,119,221,0.3); transform: translateY(-3px); }
-.proof-stars { display: flex; gap: 3px; margin-bottom: 14px; }
+.proof-stars { display: flex; gap: 3px; margin-bottom: 12px; }
 .star { color: var(--amber-light); font-size: 13px; }
-.proof-text { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 18px; font-style: italic; }
+.proof-text { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 16px; font-style: italic; }
 .proof-author { display: flex; align-items: center; gap: 10px; }
 .proof-avatar {
-  width: 34px; height: 34px; border-radius: 50%;
+  width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-head); font-size: 12px; font-weight: 700;
 }
@@ -384,117 +419,113 @@ body::before {
 .proof-tag { display: inline-block; font-size: 10px; padding: 2px 9px; border-radius: 10px; margin-bottom: 10px; }
 .proof-add {
   grid-column: span 3; border: 2px dashed rgba(255,255,255,0.08); border-radius: var(--r);
-  padding: 30px; text-align: center; display: flex; flex-direction: column;
+  padding: 28px; text-align: center; display: flex; flex-direction: column;
   align-items: center; gap: 10px; cursor: pointer; transition: border-color 0.2s, background 0.2s;
 }
 .proof-add:hover { border-color: rgba(127,119,221,0.3); background: rgba(127,119,221,0.04); }
-.proof-add-icon { font-size: 24px; opacity: 0.4; }
+.proof-add-icon { font-size: 22px; opacity: 0.4; }
 .proof-add p { font-size: 13px; color: var(--muted); }
 
 /* ——— ABOUT / TEAM ——— */
-.about-section { padding: 100px 2rem; background: var(--bg); }
+.about-section { padding: 80px 1.5rem; background: var(--bg); }
 .about-inner { max-width: 1100px; margin: 0 auto; }
-.about-intro { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; margin-bottom: 80px; }
-.about-text h2 { font-family: var(--font-head); font-size: clamp(28px, 3.5vw, 42px); font-weight: 800; line-height: 1.15; letter-spacing: -1.5px; margin-bottom: 20px; }
+.about-intro { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center; margin-bottom: 60px; }
+.about-text h2 { font-family: var(--font-head); font-size: clamp(24px, 4vw, 42px); font-weight: 800; line-height: 1.15; letter-spacing: -1.5px; margin-bottom: 20px; }
 .about-text h2 em { color: var(--purple-light); font-style: normal; }
 .about-text p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
-.about-values { display: flex; flex-direction: column; gap: 14px; }
+.about-values { display: flex; flex-direction: column; gap: 12px; }
 .value-row {
   display: flex; align-items: flex-start; gap: 14px;
   background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 18px;
+  border-radius: var(--r); padding: 16px;
   transition: border-color 0.2s;
 }
 .value-row:hover { border-color: rgba(127,119,221,0.2); }
-.value-icon { font-size: 20px; flex: 0 0 32px; }
-.value-title { font-family: var(--font-head); font-size: 14px; font-weight: 700; margin-bottom: 3px; }
-.value-desc { font-size: 13px; color: var(--muted); }
-.team-section { margin-top: 30px; }
-.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 36px; }
+.value-icon { font-size: 18px; flex: 0 0 28px; }
+.value-title { font-family: var(--font-head); font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+.value-desc { font-size: 12px; color: var(--muted); }
+.team-section { margin-top: 20px; }
+.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 28px; }
 .team-card {
   background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 22px; text-align: center;
+  border-radius: var(--r); padding: 18px; text-align: center;
   transition: transform 0.2s, border-color 0.2s;
 }
 .team-card:hover { transform: translateY(-4px); border-color: rgba(127,119,221,0.25); }
 .team-avatar {
-  width: 60px; height: 60px; border-radius: 50%;
-  margin: 0 auto 14px;
+  width: 52px; height: 52px; border-radius: 50%;
+  margin: 0 auto 12px;
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-head); font-size: 18px; font-weight: 800;
+  font-family: var(--font-head); font-size: 16px; font-weight: 800;
 }
-.team-name { font-family: var(--font-head); font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-.team-role { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
-.team-school { font-size: 11px; color: var(--purple-light); }
-.team-placeholder {
-  border: 2px dashed rgba(255,255,255,0.08); border-radius: var(--r);
-  padding: 22px; text-align: center; opacity: 0.5;
-}
-.team-placeholder p { font-size: 12px; color: var(--muted); }
+.team-name { font-family: var(--font-head); font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+.team-role { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+.team-school { font-size: 10px; color: var(--purple-light); }
 
-/* ——— VOLUNTEER / MENTOR ——— */
-.volunteer-section { padding: 100px 2rem; background: var(--bg2); position: relative; overflow: hidden; }
+/* ——— VOLUNTEER ——— */
+.volunteer-section { padding: 80px 1.5rem; background: var(--bg2); position: relative; overflow: hidden; }
 .vol-glow {
   position: absolute; right: -100px; top: 50%; transform: translateY(-50%);
   width: 500px; height: 500px; border-radius: 50%;
   background: radial-gradient(ellipse, rgba(29,158,117,0.08) 0%, transparent 70%);
   pointer-events: none;
 }
-.volunteer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
-.vol-left h2 { font-family: var(--font-head); font-size: clamp(28px, 3.5vw, 42px); font-weight: 800; line-height: 1.15; letter-spacing: -1.5px; margin-bottom: 16px; }
+.volunteer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+.vol-left h2 { font-family: var(--font-head); font-size: clamp(24px, 4vw, 42px); font-weight: 800; line-height: 1.15; letter-spacing: -1.5px; margin-bottom: 16px; }
 .vol-left h2 em { color: var(--green-light); font-style: normal; }
-.vol-left p { font-size: 15px; color: var(--muted); line-height: 1.75; margin-bottom: 28px; }
-.vol-roles { display: flex; flex-direction: column; gap: 10px; }
+.vol-left p { font-size: 15px; color: var(--muted); line-height: 1.75; margin-bottom: 24px; }
+.vol-roles { display: flex; flex-direction: column; gap: 8px; }
 .vol-role {
-  display: flex; align-items: center; gap: 14px;
+  display: flex; align-items: center; gap: 12px;
   background: rgba(29,158,117,0.05); border: 1px solid rgba(29,158,117,0.1);
-  border-radius: var(--r); padding: 14px 18px; cursor: pointer;
+  border-radius: var(--r); padding: 12px 16px; cursor: pointer;
   transition: background 0.2s, border-color 0.2s, transform 0.2s;
 }
 .vol-role:hover { background: rgba(29,158,117,0.1); border-color: rgba(29,158,117,0.25); transform: translateX(4px); }
-.vol-role-icon { font-size: 18px; flex: 0 0 32px; }
-.vol-role-title { font-size: 14px; font-weight: 500; }
-.vol-role-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.vol-role-icon { font-size: 16px; flex: 0 0 28px; }
+.vol-role-title { font-size: 13px; font-weight: 500; }
+.vol-role-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
 .vol-form {
   background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-  border-radius: 20px; padding: 32px;
+  border-radius: 20px; padding: 28px;
 }
-.vol-form h3 { font-family: var(--font-head); font-size: 20px; font-weight: 700; margin-bottom: 6px; }
-.vol-form p { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
-.form-field { margin-bottom: 14px; }
-.form-field label { display: block; font-size: 12px; color: rgba(255,255,255,0.45); margin-bottom: 6px; letter-spacing: 0.5px; }
+.vol-form h3 { font-family: var(--font-head); font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.vol-form p { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+.form-field { margin-bottom: 12px; }
+.form-field label { display: block; font-size: 11px; color: rgba(255,255,255,0.45); margin-bottom: 5px; letter-spacing: 0.5px; }
 .form-field input, .form-field select, .form-field textarea {
   width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-  color: #fff; padding: 10px 14px; border-radius: 10px; font-size: 14px;
+  color: #fff; padding: 10px 12px; border-radius: 10px; font-size: 14px;
   font-family: var(--font-body); outline: none; transition: border-color 0.2s;
+  -webkit-appearance: none; appearance: none;
 }
 .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: rgba(29,158,117,0.5); }
 .form-field select option { background: #0c0c20; }
 .form-field textarea { height: 80px; resize: none; }
 .btn-submit-green {
   width: 100%; background: #0F6E56; border: none; color: #fff;
-  padding: 12px; border-radius: 10px; font-size: 15px; font-family: var(--font-body);
+  padding: 13px; border-radius: 10px; font-size: 15px; font-family: var(--font-body);
   cursor: pointer; transition: background 0.2s, transform 0.15s; margin-top: 6px;
 }
 .btn-submit-green:hover { background: var(--green); transform: translateY(-1px); }
 
-/* ——— SUPPORT / DONORS ——— */
-.support-section { padding: 100px 2rem; background: var(--bg); }
+/* ——— SUPPORT ——— */
+.support-section { padding: 80px 1.5rem; background: var(--bg); }
 .support-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
-.support-header { margin-bottom: 60px; }
-.support-header h2 { font-family: var(--font-head); font-size: clamp(28px, 4vw, 50px); font-weight: 800; line-height: 1.1; letter-spacing: -2px; margin-bottom: 16px; }
+.support-header { margin-bottom: 50px; }
+.support-header h2 { font-family: var(--font-head); font-size: clamp(26px, 5vw, 50px); font-weight: 800; line-height: 1.1; letter-spacing: -2px; margin-bottom: 16px; }
 .support-header h2 em { color: var(--amber-light); font-style: normal; }
-.support-header p { font-size: 16px; color: var(--muted); max-width: 480px; margin: 0 auto; line-height: 1.65; }
-.support-ways { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 60px; }
+.support-header p { font-size: 15px; color: var(--muted); max-width: 480px; margin: 0 auto; line-height: 1.65; }
+.support-ways { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 50px; }
 .support-way {
   background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 28px; text-align: left;
+  border-radius: var(--r); padding: 24px; text-align: left;
   transition: border-color 0.2s, transform 0.2s;
 }
 .support-way:hover { border-color: rgba(239,159,39,0.2); transform: translateY(-3px); }
-.support-way-icon { font-size: 24px; margin-bottom: 14px; }
-.support-way h3 { font-family: var(--font-head); font-size: 16px; font-weight: 700; margin-bottom: 8px; }
-.support-way p { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+.support-way-icon { font-size: 22px; margin-bottom: 12px; }
+.support-way h3 { font-family: var(--font-head); font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.support-way p { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
 .support-way-btn {
   font-size: 13px; color: var(--amber-light); background: none; border: none;
   cursor: pointer; display: flex; align-items: center; gap: 5px;
@@ -503,80 +534,79 @@ body::before {
 .support-way-btn:hover { gap: 8px; }
 .donate-widget {
   background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-  border-radius: 20px; padding: 40px; margin-bottom: 32px;
+  border-radius: 20px; padding: 32px; margin-bottom: 32px;
 }
-.donate-amounts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+.donate-amounts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
 .donate-btn {
   background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
-  color: #fff; padding: 14px 10px; border-radius: 10px; cursor: pointer;
-  font-family: var(--font-head); font-size: 18px; font-weight: 700;
+  color: #fff; padding: 12px 8px; border-radius: 10px; cursor: pointer;
+  font-family: var(--font-head); font-size: 16px; font-weight: 700;
   transition: all 0.2s; text-align: center;
 }
 .donate-btn.selected, .donate-btn:hover { border-color: var(--amber); background: rgba(239,159,39,0.1); color: var(--amber-light); }
-.donate-label { font-size: 11px; font-weight: 400; color: var(--muted); display: block; margin-top: 2px; font-family: var(--font-body); }
-.donate-input-row { display: flex; gap: 10px; margin-top: 16px; }
+.donate-label { font-size: 10px; font-weight: 400; color: var(--muted); display: block; margin-top: 2px; font-family: var(--font-body); }
+.donate-input-row { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
 .donate-input-row input {
-  flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  flex: 1; min-width: 0; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
   color: #fff; padding: 12px 14px; border-radius: 10px; font-size: 15px;
-  font-family: var(--font-body); outline: none;
+  font-family: var(--font-body); outline: none; -webkit-appearance: none;
 }
 .btn-donate {
-  background: #854F0B; border: none; color: #fff; padding: 12px 28px;
+  background: #854F0B; border: none; color: #fff; padding: 12px 24px;
   border-radius: 10px; font-size: 15px; font-family: var(--font-body);
   cursor: pointer; transition: background 0.2s, transform 0.15s; white-space: nowrap;
 }
 .btn-donate:hover { background: var(--amber); transform: translateY(-1px); }
-.tax-note { font-size: 12px; color: rgba(255,255,255,0.25); margin-top: 12px; }
+.tax-note { font-size: 11px; color: rgba(255,255,255,0.25); margin-top: 12px; }
 
 /* ——— BRANCH PAGES ——— */
 .branch-page { display: none; }
 .branch-page.active { display: block; }
 
-/* SAT page */
-.sat-hero { padding: 80px 2rem 60px; text-align: center; background: #08051e; position: relative; overflow: hidden; }
+.sat-hero { padding: 80px 1.5rem 50px; text-align: center; background: #08051e; position: relative; overflow: hidden; }
 .sat-glow { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 400px; border-radius: 50%; background: radial-gradient(ellipse, rgba(83,74,183,0.25) 0%, transparent 70%); pointer-events: none; }
-.health-hero { padding: 80px 2rem 60px; text-align: center; background: #041209; position: relative; overflow: hidden; }
+.health-hero { padding: 80px 1.5rem 50px; text-align: center; background: #041209; position: relative; overflow: hidden; }
 .health-glow { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 400px; border-radius: 50%; background: radial-gradient(ellipse, rgba(15,110,86,0.2) 0%, transparent 70%); pointer-events: none; }
-.biz-hero { padding: 80px 2rem 60px; text-align: center; background: #0d0900; position: relative; overflow: hidden; }
+.biz-hero { padding: 80px 1.5rem 50px; text-align: center; background: #0d0900; position: relative; overflow: hidden; }
 .biz-glow { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 400px; border-radius: 50%; background: radial-gradient(ellipse, rgba(133,79,11,0.25) 0%, transparent 70%); pointer-events: none; }
 
-.branch-hero-tag { display: inline-block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 22px; }
+.branch-hero-tag { display: inline-block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 20px; }
 .branch-hero-tag.pur { background: rgba(127,119,221,0.12); border: 1px solid rgba(127,119,221,0.25); color: var(--purple-light); }
 .branch-hero-tag.grn { background: rgba(29,158,117,0.12); border: 1px solid rgba(29,158,117,0.25); color: var(--green-light); }
 .branch-hero-tag.amb { background: rgba(239,159,39,0.12); border: 1px solid rgba(239,159,39,0.25); color: var(--amber-light); }
 
-.branch-h1 { font-family: var(--font-head); font-size: clamp(36px, 5vw, 60px); font-weight: 800; letter-spacing: -2px; line-height: 1.1; max-width: 640px; margin: 0 auto 18px; }
-.branch-sub { font-size: 17px; color: var(--muted); max-width: 500px; margin: 0 auto 36px; line-height: 1.65; }
+.branch-h1 { font-family: var(--font-head); font-size: clamp(28px, 6vw, 60px); font-weight: 800; letter-spacing: -2px; line-height: 1.1; max-width: 640px; margin: 0 auto 16px; }
+.branch-sub { font-size: clamp(14px, 3vw, 17px); color: var(--muted); max-width: 500px; margin: 0 auto 32px; line-height: 1.65; }
 
-.offerings-section { padding: 60px 2rem; }
-.offerings-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 1000px; margin: 0 auto; }
-.offer-tile { border-radius: var(--r); padding: 24px; transition: transform 0.2s; }
+.offerings-section { padding: 50px 1.5rem; }
+.offerings-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 1000px; margin: 0 auto; }
+.offer-tile { border-radius: var(--r); padding: 20px; transition: transform 0.2s; }
 .offer-tile:hover { transform: translateY(-3px); }
 .offer-tile.pur { background: rgba(127,119,221,0.06); border: 1px solid rgba(127,119,221,0.15); }
 .offer-tile.grn { background: rgba(29,158,117,0.06); border: 1px solid rgba(29,158,117,0.15); }
 .offer-tile.amb { background: rgba(239,159,39,0.06); border: 1px solid rgba(239,159,39,0.15); }
-.offer-tile-tag { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 10px; margin-bottom: 12px; display: inline-block; }
+.offer-tile-tag { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 10px; margin-bottom: 10px; display: inline-block; }
 .offer-tile-tag.pur { background: rgba(127,119,221,0.15); color: var(--purple-light); }
 .offer-tile-tag.grn { background: rgba(29,158,117,0.15); color: var(--green-light); }
 .offer-tile-tag.amb { background: rgba(239,159,39,0.15); color: var(--amber-light); }
-.offer-tile h3 { font-family: var(--font-head); font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-.offer-tile p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.offer-tile h3 { font-family: var(--font-head); font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.offer-tile p { font-size: 12px; color: var(--muted); line-height: 1.6; }
 
-/* Signup boxes */
-.signup-section { padding: 60px 2rem 80px; }
+.signup-section { padding: 50px 1.5rem 70px; }
 .signup-box {
-  max-width: 560px; margin: 0 auto; border-radius: 20px; padding: 40px;
+  max-width: 520px; margin: 0 auto; border-radius: 20px; padding: 32px;
 }
 .signup-box.pur { background: rgba(127,119,221,0.06); border: 1px solid rgba(127,119,221,0.18); }
 .signup-box.grn { background: rgba(29,158,117,0.06); border: 1px solid rgba(29,158,117,0.18); }
 .signup-box.amb { background: rgba(239,159,39,0.06); border: 1px solid rgba(239,159,39,0.18); }
-.signup-box h2 { font-family: var(--font-head); font-size: 22px; font-weight: 800; margin-bottom: 6px; }
-.signup-box p { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
-.signup-field { margin-bottom: 12px; }
+.signup-box h2 { font-family: var(--font-head); font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+.signup-box p { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+.signup-field { margin-bottom: 10px; }
 .signup-field input, .signup-field select {
   width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
   color: #fff; padding: 11px 14px; border-radius: 10px; font-size: 14px;
   font-family: var(--font-body); outline: none; transition: border-color 0.2s;
+  -webkit-appearance: none; appearance: none;
 }
 .signup-field input:focus { border-color: rgba(127,119,221,0.4); }
 .signup-field select option { background: #0c0c20; }
@@ -592,20 +622,20 @@ body::before {
 .btn-signup.amb { background: #854F0B; }
 .btn-signup.amb:hover { background: var(--amber); transform: translateY(-1px); }
 
-.branch-back { padding: 20px 2rem; text-align: center; border-top: 1px solid var(--border); }
+.branch-back { padding: 20px 1.5rem; text-align: center; border-top: 1px solid var(--border); }
 .back-btn { background: none; border: none; color: rgba(255,255,255,0.35); font-size: 13px; cursor: pointer; font-family: var(--font-body); transition: color 0.2s; }
 .back-btn:hover { color: rgba(255,255,255,0.7); }
 
-/* ——— GLOBAL FOOTER ——— */
-.site-footer { background: #030310; padding: 50px 2rem 32px; border-top: 1px solid var(--border); }
+/* ——— FOOTER ——— */
+.site-footer { background: #030310; padding: 50px 1.5rem 32px; border-top: 1px solid var(--border); }
 .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
 .footer-brand .logo { font-family: var(--font-head); font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 10px; }
 .footer-brand .logo span { color: var(--purple); }
 .footer-brand p { font-size: 13px; color: rgba(255,255,255,0.3); line-height: 1.7; max-width: 220px; }
-.footer-col h4 { font-family: var(--font-head); font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.4); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px; }
+.footer-col h4 { font-family: var(--font-head); font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.4); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
 .footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,0.45); cursor: pointer; margin-bottom: 8px; transition: color 0.2s; }
 .footer-col a:hover { color: rgba(255,255,255,0.8); }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
 .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.2); }
 
 /* ——— ANIMATIONS ——— */
@@ -613,20 +643,137 @@ body::before {
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.revealed { opacity: 1; transform: translateY(0); }
 
-/* ——— RESPONSIVE ——— */
+/* ═══════════════════════════════════════
+   MOBILE RESPONSIVE — comprehensive fix
+   ═══════════════════════════════════════ */
+
+/* Tablet: 641px–900px */
 @media (max-width: 900px) {
-  .why-inner, .about-intro, .volunteer-inner { grid-template-columns: 1fr; gap: 40px; }
-  .branches-grid, .proof-grid, .team-grid, .support-ways, .offerings-grid { grid-template-columns: 1fr; }
-  .program-chooser { grid-template-columns: 1fr; }
-  .footer-inner { grid-template-columns: 1fr 1fr; }
-  .donate-amounts { grid-template-columns: repeat(2,1fr); }
-  .proof-add { grid-column: span 1; }
+  .why-inner { grid-template-columns: 1fr; gap: 40px; }
+  .about-intro { grid-template-columns: 1fr; gap: 40px; }
+  .volunteer-inner { grid-template-columns: 1fr; gap: 40px; }
+
+  .branches-grid { grid-template-columns: 1fr 1fr; }
+  .proof-grid { grid-template-columns: 1fr 1fr; }
+  .proof-add { grid-column: span 2; }
+  .team-grid { grid-template-columns: repeat(3, 1fr); }
+  .support-ways { grid-template-columns: 1fr 1fr; }
+  .offerings-grid { grid-template-columns: 1fr 1fr; }
+
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .donate-amounts { grid-template-columns: repeat(4, 1fr); }
+  .program-chooser { grid-template-columns: repeat(3, 1fr); }
+  .stats-track { gap: 24px; }
 }
+
+/* Mobile: up to 640px — the main fix */
 @media (max-width: 640px) {
+  /* Nav */
+  .nav { padding: 0 1rem; }
   .nav-center { display: none; }
-  .hero h1 { letter-spacing: -1.5px; }
-  .footer-inner { grid-template-columns: 1fr; }
-  .donate-amounts { grid-template-columns: repeat(2,1fr); }
+  .nav-right { display: none; }
+  .nav-hamburger { display: flex; }
+
+  /* Hero */
+  .hero { padding: 80px 1.2rem 50px; min-height: auto; padding-top: 96px; }
+  .hero h1 { font-size: clamp(32px, 9vw, 52px); letter-spacing: -1.5px; margin-bottom: 20px; }
+  .hero-sub { font-size: 15px; margin-bottom: 28px; }
+  .hero-btns { flex-direction: column; align-items: center; gap: 10px; }
+  .hero-btns .btn-glow, .hero-btns .btn-ghost { width: 100%; max-width: 280px; padding: 14px 24px; }
+  .hero-scroll { margin-top: 40px; }
+  .eyebrow { font-size: 10px; letter-spacing: 1px; padding: 4px 12px; }
+
+  /* Sections general */
+  .video-section { padding: 50px 1.2rem; }
+  .why-section { padding: 60px 1.2rem; }
+  .journey-section { padding: 60px 1.2rem; }
+  .branches-section { padding: 60px 1.2rem; }
+  .proof-section { padding: 60px 1.2rem; }
+  .about-section { padding: 60px 1.2rem; }
+  .volunteer-section { padding: 60px 1.2rem; }
+  .support-section { padding: 60px 1.2rem; }
+  .stats-ribbon { padding: 36px 1.2rem; }
+
+  /* Section titles */
+  .section-title { font-size: clamp(22px, 6vw, 32px); }
+  .section-sub { font-size: 14px; }
+
+  /* Why section */
+  .why-inner { grid-template-columns: 1fr; gap: 32px; }
+  .why-quote { font-size: clamp(20px, 6vw, 28px); }
+  .why-stat-row { flex-direction: row; gap: 8px; }
+  .why-stat-box { padding: 12px; }
+  .why-stat-num { font-size: 22px; }
+  .why-bg-text { font-size: 80px; }
+
+  /* Stats ribbon */
+  .stats-track { flex-wrap: wrap; gap: 20px; justify-content: center; }
+  .stat-item { flex: 0 0 42%; }
+  .stat-num { font-size: clamp(32px, 8vw, 48px); }
+
+  /* Program chooser */
+  .program-chooser { grid-template-columns: 1fr; gap: 8px; }
+  .prog-choice { padding: 14px 16px; display: flex; align-items: center; gap: 12px; text-align: left; }
+  .prog-choice-icon { font-size: 22px; margin-bottom: 0; flex-shrink: 0; }
+  .prog-choice h3 { font-size: 14px; margin-bottom: 2px; }
+  .prog-choice p { font-size: 12px; }
+
+  /* Journey steps */
+  .journey-step { gap: 12px; padding: 16px 0; }
+  .step-body h4 { font-size: 14px; }
+  .step-body p { font-size: 13px; }
+
+  /* Branch cards */
+  .branches-grid { grid-template-columns: 1fr; gap: 12px; }
+  .branch-card { padding: 22px; }
+
+  /* Proof cards */
+  .proof-grid { grid-template-columns: 1fr; gap: 12px; }
+  .proof-add { grid-column: span 1; }
+
+  /* About */
+  .about-intro { grid-template-columns: 1fr; gap: 32px; margin-bottom: 40px; }
+  .team-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .team-card { padding: 14px; }
+  .team-name { font-size: 12px; }
+  .team-school { font-size: 9px; }
+
+  /* Volunteer */
+  .volunteer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .vol-form { padding: 22px; border-radius: 16px; }
+
+  /* Support */
+  .support-ways { grid-template-columns: 1fr; gap: 10px; }
+  .donate-amounts { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .donate-btn { padding: 12px 6px; font-size: 15px; }
+  .donate-input-row { flex-direction: column; }
+  .donate-input-row input { width: 100%; }
+  .btn-donate { width: 100%; }
+  .donate-widget { padding: 22px; border-radius: 16px; }
+
+  /* Branch pages */
+  .sat-hero, .health-hero, .biz-hero { padding: 72px 1.2rem 40px; }
+  .branch-h1 { font-size: clamp(26px, 7vw, 40px); letter-spacing: -1px; }
+  .branch-sub { font-size: 14px; }
+  .offerings-section { padding: 40px 1.2rem; }
+  .offerings-grid { grid-template-columns: 1fr; gap: 10px; }
+  .signup-section { padding: 40px 1.2rem 60px; }
+  .signup-box { padding: 22px; border-radius: 16px; }
+  .signup-box h2 { font-size: 18px; }
+
+  /* Footer */
+  .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+  .footer-brand p { max-width: 100%; }
+  .footer-bottom { flex-direction: column; text-align: center; gap: 6px; }
+  .site-footer { padding: 40px 1.2rem 28px; }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  .hero h1 { font-size: 28px; }
+  .stat-item { flex: 0 0 100%; }
+  .team-grid { grid-template-columns: 1fr 1fr; }
+  .donate-amounts { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
@@ -666,12 +813,38 @@ body::before {
     <button class="nav-pill" onclick="scrollToSection('journey')">Find my program</button>
     <button class="nav-cta" onclick="scrollToSection('journey')">Join the movement →</button>
   </div>
+  <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<!-- ══════════════ HOME ══════════════ -->
-<div id="page-home" class="section active">
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-section">
+    <span class="mobile-menu-label">About</span>
+    <button class="mobile-menu-item" onclick="mobileNav('why')">Why We Exist</button>
+    <button class="mobile-menu-item" onclick="mobileNav('about')">Leadership Team</button>
+    <button class="mobile-menu-item" onclick="mobileNav('proof')">Impact Stories</button>
+  </div>
+  <div class="mobile-menu-divider"></div>
+  <div class="mobile-menu-section">
+    <span class="mobile-menu-label">Programs</span>
+    <button class="mobile-menu-item" onclick="mobileBranch('sat')">📚 APEX SAT</button>
+    <button class="mobile-menu-item" onclick="mobileBranch('health')">⚕️ APEX Health</button>
+    <button class="mobile-menu-item" onclick="mobileBranch('biz')">💼 APEX Business</button>
+  </div>
+  <div class="mobile-menu-divider"></div>
+  <div class="mobile-menu-section">
+    <span class="mobile-menu-label">Get Involved</span>
+    <button class="mobile-menu-item" onclick="mobileNav('volunteer')">Volunteer</button>
+    <button class="mobile-menu-item" onclick="mobileNav('support')">Donate</button>
+    <button class="mobile-menu-item" onclick="mobileNav('stats')">Our Impact</button>
+  </div>
+  <button class="mobile-menu-cta" onclick="mobileNav('journey')">Find my program →</button>
+</div>
 
-  <!-- HERO -->
+<!-- HOME -->
+<div id="page-home" class="section active">
   <section class="hero">
     <div class="hero-glow"></div>
     <div class="hero-glow2"></div>
@@ -689,12 +862,9 @@ body::before {
       <button class="btn-glow" onclick="scrollToSection('journey')">Find your program →</button>
       <button class="btn-ghost" onclick="scrollToSection('why')">Why we exist</button>
     </div>
-    <div class="hero-scroll">
-      <div class="scroll-dot"></div>
-    </div>
+    <div class="hero-scroll"><div class="scroll-dot"></div></div>
   </section>
 
-  <!-- VIDEO SECTION -->
   <section class="video-section" id="sec-video">
     <div class="video-section-inner">
       <span class="section-tag">Our story</span>
@@ -713,7 +883,6 @@ body::before {
     </div>
   </section>
 
-  <!-- STATS -->
   <div class="stats-ribbon" id="sec-stats">
     <div class="stats-track">
       <div class="stat-item reveal">
@@ -735,25 +904,24 @@ body::before {
     </div>
   </div>
 
-  <!-- WHY THIS EXISTS -->
   <section class="why-section" id="sec-why">
     <div class="why-bg-text">WHY</div>
     <div class="why-inner">
       <div>
         <div class="why-origin reveal">
-          <p>"I got into a top university. My best friend just as smart, 
-            just as driven didn't even know where to apply. 
+          <p>"I got into a top university. My best friend — just as smart, 
+            just as driven — didn't even know where to apply. 
             The difference wasn't talent. It was access."</p>
           <cite>— APEX Founder, Class of 2023</cite>
         </div>
         <br>
-        <p class="why-text reveal">In 2022, a group of college students realized the opportunities that changed their lives 
-           test prep, mentorship, application coaching were invisible to most of the world. Not because students didn't want 
+        <p class="why-text reveal">In 2022, a group of college students realized the opportunities that changed their lives — 
+           test prep, mentorship, application coaching — were invisible to most of the world. Not because students didn't want 
            them. Because they didn't know they existed, or couldn't afford them.</p>
         <p class="why-text reveal" style="margin-top:14px;">So they built APEX Initiatives. No fees. No gatekeeping. 
           No prerequisites. Just students helping students, 
           in three of the most opportunity-defining fields on earth.</p>
-        <div class="why-stat-row reveal" style="margin-top:28px;">
+        <div class="why-stat-row reveal" style="margin-top:24px;">
           <div class="why-stat-box">
             <div class="why-stat-num" style="color:var(--purple-light)">$0</div>
             <div class="why-stat-label">Cost to any student, ever</div>
@@ -774,71 +942,65 @@ body::before {
           Talent is <em>everywhere</em>.<br>Opportunity is <em>not</em>.<br>We're here to fix that.
         </h2>
         <br>
-        <p class="why-text reveal">Test prep companies charge $150/hour. College consultants charge $5,000 a package. Medical school advisors cost thousands. These barriers don't reflect who deserves access just who can afford it.</p>
+        <p class="why-text reveal">Test prep companies charge $150/hour. College consultants charge $5,000 a package. Medical school advisors cost thousands. These barriers don't reflect who deserves access — just who can afford it.</p>
         <p class="why-text reveal" style="margin-top:14px;">APEX exists because the gap between knowing and not knowing something changes entire life trajectories. We close that gap permanently, freely, globally.</p>
       </div>
     </div>
   </section>
 
-  <!-- JOURNEY -->
   <section class="journey-section" id="sec-journey">
     <div class="journey-inner">
       <div class="journey-header">
         <span class="section-tag">Your path</span>
         <h2 class="section-title reveal">Not sure where to start?<br>We'll show you.</h2>
-        <p class="section-sub reveal" style="margin: 0 auto;">Choose the area that excites you and we'll walk you through exactly how to get involved.</p>
+        <p class="section-sub reveal" style="margin:0 auto;">Choose the area that excites you and we'll walk you through exactly how to get involved.</p>
       </div>
-
       <div class="program-chooser reveal">
         <div class="prog-choice purple-theme" onclick="selectJourney('sat', this)">
           <div class="prog-choice-icon">📚</div>
-          <h3>College & SAT Prep</h3>
-          <p>Crush standardized tests, ace applications</p>
+          <div><h3>College & SAT Prep</h3><p>Crush standardized tests, ace applications</p></div>
         </div>
         <div class="prog-choice green-theme" onclick="selectJourney('health', this)">
           <div class="prog-choice-icon">⚕️</div>
-          <h3>Healthcare Careers</h3>
-          <p>Explore medicine, nursing & public health</p>
+          <div><h3>Healthcare Careers</h3><p>Explore medicine, nursing & public health</p></div>
         </div>
         <div class="prog-choice amber-theme" onclick="selectJourney('biz', this)">
           <div class="prog-choice-icon">💼</div>
-          <h3>Business & Finance</h3>
-          <p>Build wealth, launch ventures, find your path</p>
+          <div><h3>Business & Finance</h3><p>Build wealth, launch ventures, find your path</p></div>
         </div>
       </div>
 
       <div id="journey-sat" class="journey-flow">
         <div class="journey-steps">
-          <div class="journey-step"><div class="step-num purple">1</div><div class="step-body"><h4>Tell us your goal</h4><p>Whether you're aiming for a 1500+ SAT score, AP credit, or admission to a top-15 university we tailor everything to your goal.</p><div class="step-action"><button class="step-btn purple" onclick="showBranch('sat')">See all SAT programs →</button></div></div></div>
+          <div class="journey-step"><div class="step-num purple">1</div><div class="step-body"><h4>Tell us your goal</h4><p>Whether you're aiming for a 1500+ SAT score, AP credit, or admission to a top-15 university — we tailor everything to your goal.</p><div class="step-action"><button class="step-btn purple" onclick="showBranch('sat')">See all SAT programs →</button></div></div></div>
           <div class="journey-step"><div class="step-num purple">2</div><div class="step-body"><h4>Get matched with a mentor</h4><p>We pair you with a student from Yale, Stanford, Harvard, or MIT who's navigated exactly what you're going through.</p></div></div>
-          <div class="journey-step"><div class="step-num purple">3</div><div class="step-body"><h4>Join your cohort</h4><p>Live sessions, practice tests, essay reviews, and strategy structured and free. No paying for a Zoom link.</p></div></div>
+          <div class="journey-step"><div class="step-num purple">3</div><div class="step-body"><h4>Join your cohort</h4><p>Live sessions, practice tests, essay reviews, and strategy — structured and free. No paying for a Zoom link.</p></div></div>
           <div class="journey-step"><div class="step-num purple">4</div><div class="step-body"><h4>Apply & get in</h4><p>Your mentor helps you through final apps, financial aid questions, and decision day. Then you become the mentor for the next generation.</p><div class="step-action"><button class="step-btn purple" onclick="showBranch('sat')">Sign up for APEX SAT →</button></div></div></div>
         </div>
       </div>
 
       <div id="journey-health" class="journey-flow">
         <div class="journey-steps">
-          <div class="journey-step"><div class="step-num green">1</div><div class="step-body"><h4>Explore what's possible</h4><p>Medicine, nursing, pharmacy, public health, PA attend a career webinar with students already in these programs to see what each path looks like.</p><div class="step-action"><button class="step-btn green" onclick="showBranch('health')">See APEX Health programs →</button></div></div></div>
-          <div class="journey-step"><div class="step-num green">2</div><div class="step-body"><h4>Join a health literacy workshop</h4><p>Start with the basics. Our practical workshops cover nutrition, mental health, first aid real skills that matter regardless of which direction you go.</p></div></div>
+          <div class="journey-step"><div class="step-num green">1</div><div class="step-body"><h4>Explore what's possible</h4><p>Medicine, nursing, pharmacy, public health, PA — attend a career webinar with students already in these programs.</p><div class="step-action"><button class="step-btn green" onclick="showBranch('health')">See APEX Health programs →</button></div></div></div>
+          <div class="journey-step"><div class="step-num green">2</div><div class="step-body"><h4>Join a health literacy workshop</h4><p>Start with the basics. Our practical workshops cover nutrition, mental health, first aid — real skills that matter regardless of which direction you go.</p></div></div>
           <div class="journey-step"><div class="step-num green">3</div><div class="step-body"><h4>Get a pre-health mentor</h4><p>Paired with a college pre-med or nursing student who guides you through coursework, extracurriculars, and what healthcare school applications actually require.</p></div></div>
-          <div class="journey-step"><div class="step-num green">4</div><div class="step-body"><h4>Build your application profile</h4><p>Volunteer hours, research, shadowing your mentor helps you understand what healthcare schools actually look for, well before you apply.</p><div class="step-action"><button class="step-btn green" onclick="showBranch('health')">Join APEX Health →</button></div></div></div>
+          <div class="journey-step"><div class="step-num green">4</div><div class="step-body"><h4>Build your application profile</h4><p>Volunteer hours, research, shadowing — your mentor helps you understand what healthcare schools actually look for, well before you apply.</p><div class="step-action"><button class="step-btn green" onclick="showBranch('health')">Join APEX Health →</button></div></div></div>
         </div>
       </div>
 
       <div id="journey-biz" class="journey-flow">
         <div class="journey-steps">
           <div class="journey-step"><div class="step-num amber">1</div><div class="step-body"><h4>Start with financial literacy</h4><p>Before anything else — understand how money works. Budgeting, credit, compound interest, investing basics. The foundation nobody taught you.</p><div class="step-action"><button class="step-btn amber" onclick="showBranch('biz')">See APEX Business programs →</button></div></div></div>
-          <div class="journey-step"><div class="step-num amber">2</div><div class="step-body"><h4>Choose your track</h4><p>Entrepreneurship bootcamp, corporate finance path, consulting prep, or startup mentorship we build your program around where you want to go.</p></div></div>
-          <div class="journey-step"><div class="step-num amber">3</div><div class="step-body"><h4>Get career-ready</h4><p>Resume, LinkedIn, networking strategy, mock interviews everything to land your first internship, built with your mentor from a top business school.</p></div></div>
+          <div class="journey-step"><div class="step-num amber">2</div><div class="step-body"><h4>Choose your track</h4><p>Entrepreneurship bootcamp, corporate finance path, consulting prep, or startup mentorship — we build your program around where you want to go.</p></div></div>
+          <div class="journey-step"><div class="step-num amber">3</div><div class="step-body"><h4>Get career-ready</h4><p>Resume, LinkedIn, networking strategy, mock interviews — everything to land your first internship, built with your mentor from a top business school.</p></div></div>
           <div class="journey-step"><div class="step-num amber">4</div><div class="step-body"><h4>Compete & build</h4><p>Enter pitch competitions, case challenges, and stock market simulations. Then mentor the next wave of students through the same journey.</p><div class="step-action"><button class="step-btn amber" onclick="showBranch('biz')">Join APEX Business →</button></div></div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- BRANCHES -->
   <section class="branches-section" id="sec-branches">
-    <div style="max-width:1100px; margin:0 auto;">
+    <div style="max-width:1100px;margin:0 auto;">
       <span class="section-tag">Three verticals</span>
       <h2 class="section-title reveal">Every program.<br>Zero cost.</h2>
       <div class="branches-grid">
@@ -882,12 +1044,11 @@ body::before {
     </div>
   </section>
 
-  <!-- SOCIAL PROOF -->
   <section class="proof-section" id="sec-proof">
     <div class="proof-inner">
       <span class="section-tag">Student stories</span>
       <h2 class="section-title reveal">What students say</h2>
-      <p class="section-sub reveal">Real words from real students. These will be updated as testimonials come in.</p>
+      <p class="section-sub reveal">Real words from real students.</p>
       <div class="proof-grid">
         <div class="proof-card reveal">
           <div class="proof-tag" style="background:rgba(127,119,221,0.12);color:var(--purple-light);">APEX SAT</div>
@@ -895,10 +1056,7 @@ body::before {
           <p class="proof-text">"My family couldn't afford a tutor. APEX matched me with someone who went to UPenn and genuinely cared. I went from a 1180 to a 1420 in 3 months."</p>
           <div class="proof-author">
             <div class="proof-avatar" style="background:rgba(127,119,221,0.2);color:var(--purple-light);">AM</div>
-            <div>
-              <div class="proof-author-name">Amara M.</div>
-              <div class="proof-author-detail">Nigeria → University of Michigan</div>
-            </div>
+            <div><div class="proof-author-name">Amara M.</div><div class="proof-author-detail">Nigeria → University of Michigan</div></div>
           </div>
         </div>
         <div class="proof-card reveal">
@@ -907,10 +1065,7 @@ body::before {
           <p class="proof-text">"I had no idea what a pre-med path even looked like. My APEX mentor helped me plan 4 years of coursework and get my first shadowing experience."</p>
           <div class="proof-author">
             <div class="proof-avatar" style="background:rgba(29,158,117,0.2);color:var(--green-light);">JS</div>
-            <div>
-              <div class="proof-author-name">Jordan S.</div>
-              <div class="proof-author-detail">Rural Texas → Pre-med at UT Austin</div>
-            </div>
+            <div><div class="proof-author-name">Jordan S.</div><div class="proof-author-detail">Rural Texas → Pre-med at UT Austin</div></div>
           </div>
         </div>
         <div class="proof-card reveal">
@@ -919,22 +1074,18 @@ body::before {
           <p class="proof-text">"I was the first in my family to understand what a stock was. APEX's bootcamp gave me the confidence to launch a small business at 16. Now it's profitable."</p>
           <div class="proof-author">
             <div class="proof-avatar" style="background:rgba(239,159,39,0.2);color:var(--amber-light);">KT</div>
-            <div>
-              <div class="proof-author-name">Kofi T.</div>
-              <div class="proof-author-detail">Ghana → Wharton applicant</div>
-            </div>
+            <div><div class="proof-author-name">Kofi T.</div><div class="proof-author-detail">Ghana → Wharton applicant</div></div>
           </div>
         </div>
-        <div class="proof-add reveal" onclick="alert('Testimonial submission coming soon! Email us at stories@apexinitiatives.org')">
+        <div class="proof-add reveal" onclick="alert('Email us at stories@apexinitiatives.org')">
           <div class="proof-add-icon">✦</div>
           <p><strong>Add your story</strong></p>
-          <p>Share your APEX experience your words help the next student find their path.</p>
+          <p>Share your APEX experience — your words help the next student find their path.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ABOUT + TEAM -->
   <section class="about-section" id="sec-about">
     <div class="about-inner">
       <div class="about-intro">
@@ -947,11 +1098,11 @@ body::before {
         <div class="about-values">
           <div class="value-row reveal">
             <div class="value-icon">⚡</div>
-            <div><div class="value-title">Peer-to-peer, always</div><div class="value-desc">Students trust students. We hire no corporate consultants every mentor has lived the experience they're sharing.</div></div>
+            <div><div class="value-title">Peer-to-peer, always</div><div class="value-desc">Students trust students. We hire no corporate consultants — every mentor has lived the experience they're sharing.</div></div>
           </div>
           <div class="value-row reveal">
             <div class="value-icon">🌍</div>
-            <div><div class="value-title">Global by design</div><div class="value-desc">From Nigeria to Nicaragua, rural Texas to rural India if you have wifi and ambition, you're welcome here.</div></div>
+            <div><div class="value-title">Global by design</div><div class="value-desc">From Nigeria to Nicaragua, rural Texas to rural India — if you have wifi and ambition, you're welcome here.</div></div>
           </div>
           <div class="value-row reveal">
             <div class="value-icon">🔓</div>
@@ -963,40 +1114,39 @@ body::before {
           </div>
         </div>
       </div>
-
       <div class="team-section">
         <span class="section-tag">Leadership</span>
-        <h3 class="section-title reveal" style="font-size:clamp(22px,3vw,32px);">The people behind the mission</h3>
+        <h3 class="section-title reveal" style="font-size:clamp(20px,3vw,32px);">The people behind the mission</h3>
         <div class="team-grid">
           <div class="team-card reveal">
-            <div class="team-avatar" style="background:rgba(127,119,221,0.18);color:var(--purple-light);"><img src="" alt=""></div>
+            <div class="team-avatar" style="background:rgba(127,119,221,0.18);color:var(--purple-light);">SD</div>
             <div class="team-name">Executive Director</div>
             <div class="team-role">Strategist</div>
-            <div class="team-school">Siddharth Dodda · Pine Creek High School</div>
+            <div class="team-school">Siddharth Dodda · Pine Creek HS</div>
           </div>
           <div class="team-card reveal">
-            <div class="team-avatar" style="background:rgba(29,158,117,0.18);color:var(--green-light);"><img src="" alt=""></div>
+            <div class="team-avatar" style="background:rgba(29,158,117,0.18);color:var(--green-light);">EH</div>
             <div class="team-name">Director, APEX Health</div>
             <div class="team-role">Healthcare Programs Lead</div>
-            <div class="team-school">Eric Huang · Pine Creek High School</div>
+            <div class="team-school">Eric Huang · Pine Creek HS</div>
           </div>
           <div class="team-card reveal">
-            <div class="team-avatar" style="background:rgba(239,159,39,0.18);color:var(--amber-light);"><img src="" alt=""></div>
+            <div class="team-avatar" style="background:rgba(239,159,39,0.18);color:var(--amber-light);">HW</div>
             <div class="team-name">Director, APEX SAT</div>
             <div class="team-role">Education Programs Lead</div>
-            <div class="team-school">Helan Wan · Pine Creek High School</div>
+            <div class="team-school">Helan Wan · Pine Creek HS</div>
           </div>
           <div class="team-card reveal">
-            <div class="team-avatar" style="background:rgba(127,119,221,0.18);color:var(--purple-light);"><img src="" alt=""></div>
+            <div class="team-avatar" style="background:rgba(127,119,221,0.18);color:var(--purple-light);">RK</div>
             <div class="team-name">Director, APEX Business</div>
             <div class="team-role">Business Programs Lead</div>
-            <div class="team-school">Rhythm Kasat · Pine Creek High School</div>
+            <div class="team-school">Rhythm Kasat · Pine Creek HS</div>
           </div>
-           <div class="team-card reveal">
-            <div class="team-avatar" style="background:rgba(127,119,221,0.18);color:var(--purple-light);"><img src="" alt=""></div>
+          <div class="team-card reveal">
+            <div class="team-avatar" style="background:rgba(127,119,221,0.18);color:var(--purple-light);">MT</div>
             <div class="team-name">Chief Technology Officer</div>
             <div class="team-role">Technology Programs Lead</div>
-            <div class="team-school">Monsf Tibin · Pine Creek High School</div>
+            <div class="team-school">Monsf Tibin · Pine Creek HS</div>
           </div>
         </div>
         <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:20px;">Contact: monsf.tibin@apexinitiatives.org</p>
@@ -1004,7 +1154,6 @@ body::before {
     </div>
   </section>
 
-  <!-- VOLUNTEER / MENTOR -->
   <section class="volunteer-section" id="sec-volunteer">
     <div class="vol-glow"></div>
     <div class="volunteer-inner">
@@ -1055,12 +1204,11 @@ body::before {
           </select>
         </div>
         <div class="form-field"><label>Why do you want to volunteer? (optional)</label><textarea placeholder="What drove you here?"></textarea></div>
-        <button class="btn-submit-green" onclick="alert('Application received! Our team will reach out within 48 hours. Thank you for wanting to be part of this.')">Submit application →</button>
+        <button class="btn-submit-green" onclick="alert('Application received! Our team will reach out within 48 hours. Thank you!')">Submit application →</button>
       </div>
     </div>
   </section>
 
-  <!-- SUPPORT / DONORS -->
   <section class="support-section" id="sec-support">
     <div class="support-inner">
       <div class="support-header">
@@ -1085,29 +1233,27 @@ body::before {
           <div class="support-way-icon">🏢</div>
           <h3>Institutional partnership</h3>
           <p>Schools, foundations, companies, and universities can partner to co-deliver programming, sponsor cohorts, or refer students.</p>
-          <button class="support-way-btn" onclick="alert('Email us at partnerships@apexinitiatives.org — our team responds within 24 hours.')">Start a partnership →</button>
+          <button class="support-way-btn" onclick="alert('Email us at partnerships@apexinitiatives.org')">Start a partnership →</button>
         </div>
       </div>
-
       <div class="donate-widget reveal" id="donate-widget">
         <h3 style="font-family:var(--font-head);font-size:20px;font-weight:700;margin-bottom:6px;">Choose your impact</h3>
         <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">All donations are tax-deductible. 501(c)(3) EIN on request.</p>
         <div class="donate-amounts">
           <div class="donate-btn" onclick="selectDonate(this)">$25<span class="donate-label">1 student</span></div>
           <div class="donate-btn selected" onclick="selectDonate(this)">$100<span class="donate-label">1 workshop</span></div>
-          <div class="donate-btn" onclick="selectDonate(this)">$250<span class="donate-label">1 month of tutoring</span></div>
+          <div class="donate-btn" onclick="selectDonate(this)">$250<span class="donate-label">1 month tutoring</span></div>
           <div class="donate-btn" onclick="selectDonate(this)">$500<span class="donate-label">Full cohort</span></div>
         </div>
         <div class="donate-input-row">
           <input type="text" placeholder="Or enter a custom amount..." />
-          <button class="btn-donate" onclick="alert('Thank you for your generosity! Redirecting to secure payment portal...')">Donate now →</button>
+          <button class="btn-donate" onclick="alert('Thank you! Redirecting to secure payment portal...')">Donate now →</button>
         </div>
         <p class="tax-note">APEX Initiatives · 501(c)(3) Nonprofit · All donations are tax-deductible</p>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-brand">
@@ -1140,10 +1286,9 @@ body::before {
       <p>Built by students, for students.</p>
     </div>
   </footer>
+</div>
 
-</div><!-- end page-home -->
-
-<!-- ══════════════ SAT PAGE ══════════════ -->
+<!-- SAT PAGE -->
 <div id="page-sat" class="branch-page">
   <div class="sat-hero">
     <div class="sat-glow"></div>
@@ -1153,7 +1298,7 @@ body::before {
     <button class="btn-glow" onclick="document.getElementById('sat-signup').scrollIntoView({behavior:'smooth'})">Sign up — it's free →</button>
   </div>
   <div class="offerings-section" style="background:#0a0720;">
-    <div style="text-align:center;margin-bottom:36px;"><span class="section-tag">What's included</span></div>
+    <div style="text-align:center;margin-bottom:28px;"><span class="section-tag">What's included</span></div>
     <div class="offerings-grid">
       <div class="offer-tile pur"><div class="offer-tile-tag pur">SAT Prep</div><h3>Full preparation program</h3><p>Structured study plans, timed practice tests, scoring strategy, and section-by-section coaching.</p></div>
       <div class="offer-tile pur"><div class="offer-tile-tag pur">AP Tutoring</div><h3>Subject-specific AP support</h3><p>1-on-1 tutoring across AP subjects to earn college credit and strengthen your application profile.</p></div>
@@ -1172,13 +1317,13 @@ body::before {
       <div class="signup-field"><input type="text" placeholder="Country / Location" /></div>
       <div class="signup-field"><select><option>SAT prep (full program)</option><option>AP tutoring only</option><option>College consulting</option><option>Essay review</option><option>Webinars only</option></select></div>
       <div class="signup-field"><input type="text" placeholder="Current SAT score (if any)" /></div>
-      <button class="btn-signup pur" onclick="alert('You\'re on the list! Expect an email within 2 business days matching you with a mentor.')">Request a spot →</button>
+      <button class="btn-signup pur" onclick="alert('You\'re on the list! Expect an email within 2 business days.')">Request a spot →</button>
     </div>
   </div>
   <div class="branch-back"><button class="back-btn" onclick="goHome()">← Back to APEX Initiatives</button></div>
 </div>
 
-<!-- ══════════════ HEALTH PAGE ══════════════ -->
+<!-- HEALTH PAGE -->
 <div id="page-health" class="branch-page">
   <div class="health-hero">
     <div class="health-glow"></div>
@@ -1188,7 +1333,7 @@ body::before {
     <button class="btn-glow" style="background:#0F6E56;" onclick="document.getElementById('health-signup').scrollIntoView({behavior:'smooth'})">Join for free →</button>
   </div>
   <div class="offerings-section" style="background:#061510;">
-    <div style="text-align:center;margin-bottom:36px;"><span class="section-tag">What's included</span></div>
+    <div style="text-align:center;margin-bottom:28px;"><span class="section-tag">What's included</span></div>
     <div class="offerings-grid">
       <div class="offer-tile grn"><div class="offer-tile-tag grn">Workshops</div><h3>Health literacy workshops</h3><p>Nutrition, mental health, sleep, stress — practical, judgment-free, and taught in plain language.</p></div>
       <div class="offer-tile grn"><div class="offer-tile-tag grn">Training</div><h3>First aid & CPR</h3><p>Certified first aid, CPR, and emergency preparedness training through partner organizations.</p></div>
@@ -1212,7 +1357,7 @@ body::before {
   <div class="branch-back" style="background:#041209;"><button class="back-btn" onclick="goHome()">← Back to APEX Initiatives</button></div>
 </div>
 
-<!-- ══════════════ BUSINESS PAGE ══════════════ -->
+<!-- BUSINESS PAGE -->
 <div id="page-biz" class="branch-page">
   <div class="biz-hero">
     <div class="biz-glow"></div>
@@ -1222,11 +1367,11 @@ body::before {
     <button class="btn-glow" style="background:#854F0B;" onclick="document.getElementById('biz-signup').scrollIntoView({behavior:'smooth'})">Join for free →</button>
   </div>
   <div class="offerings-section" style="background:#100a00;">
-    <div style="text-align:center;margin-bottom:36px;"><span class="section-tag">What's included</span></div>
+    <div style="text-align:center;margin-bottom:28px;"><span class="section-tag">What's included</span></div>
     <div class="offerings-grid">
-      <div class="offer-tile amb"><div class="offer-tile-tag amb">Finance</div><h3>Financial literacy curriculum</h3><p>Budgeting, credit, investing, student loans, and taxes — taught in plain language with real examples you can act on.</p></div>
-      <div class="offer-tile amb"><div class="offer-tile-tag amb">Bootcamp</div><h3>Entrepreneurship bootcamp</h3><p>Develop a business idea, build a plan, create a brand, and pitch to a panel. Confidence as much as competence.</p></div>
-      <div class="offer-tile amb"><div class="offer-tile-tag amb">Career</div><h3>Career readiness training</h3><p>Resumes, cover letters, LinkedIn, networking, and interview skills to land your first internship or job.</p></div>
+      <div class="offer-tile amb"><div class="offer-tile-tag amb">Finance</div><h3>Financial literacy curriculum</h3><p>Budgeting, credit, investing, student loans, and taxes — taught in plain language with real examples.</p></div>
+      <div class="offer-tile amb"><div class="offer-tile-tag amb">Bootcamp</div><h3>Entrepreneurship bootcamp</h3><p>Develop a business idea, build a plan, create a brand, and pitch to a panel.</p></div>
+      <div class="offer-tile amb"><div class="offer-tile-tag amb">Career</div><h3>Career readiness training</h3><p>Resumes, cover letters, LinkedIn, networking, and interview skills to land your first internship.</p></div>
       <div class="offer-tile amb"><div class="offer-tile-tag amb">Mentorship</div><h3>1-on-1 business mentorship</h3><p>Paired with business majors, young professionals, and founders who guide your path into the industry.</p></div>
       <div class="offer-tile amb"><div class="offer-tile-tag amb">Compete</div><h3>Pitch nights & competitions</h3><p>Pitch competitions, case challenges, stock simulations, and mini-grants for student ventures.</p></div>
       <div class="offer-tile amb"><div class="offer-tile-tag amb">Self-paced</div><h3>On-demand finance course</h3><p>A full curriculum covering personal finance to startup funding — available whenever, at your own pace.</p></div>
@@ -1247,20 +1392,41 @@ body::before {
 </div>
 
 <script>
-// ——— SECTION / PAGE NAV ———
+// ——— MOBILE MENU ———
+function toggleMenu() {
+  const hamburger = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  hamburger.classList.toggle('open');
+  menu.classList.toggle('open');
+  document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+}
+function closeMenu() {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function mobileNav(id) {
+  closeMenu();
+  setTimeout(() => scrollToSection(id), 200);
+}
+function mobileBranch(name) {
+  closeMenu();
+  setTimeout(() => showBranch(name), 200);
+}
+
+// ——— PAGE NAV ———
 function goHome() {
   document.querySelectorAll('.section, .branch-page').forEach(el => el.classList.remove('active'));
   document.getElementById('page-home').classList.add('active');
   window.scrollTo(0, 0);
+  countersDone = false;
   initReveal();
 }
-
 function showBranch(name) {
   document.querySelectorAll('.section, .branch-page').forEach(el => el.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
   window.scrollTo(0, 0);
 }
-
 function scrollToSection(id) {
   const map = {
     why: 'sec-why', about: 'sec-about', proof: 'sec-proof',
@@ -1275,7 +1441,7 @@ function scrollToSection(id) {
     setTimeout(() => {
       const el = document.getElementById(targetId);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+    }, 120);
   } else {
     const el = document.getElementById(targetId);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -1286,7 +1452,6 @@ function scrollToSection(id) {
 function loadVideo() {
   const placeholder = document.getElementById('videoPlaceholder');
   const iframe = document.getElementById('videoIframe');
-  // Swap in real YouTube embed URL when available
   iframe.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1';
   placeholder.style.display = 'none';
   iframe.style.display = 'block';
@@ -1301,19 +1466,17 @@ function selectJourney(name, el) {
   flow.classList.add('active');
   setTimeout(() => {
     const steps = flow.querySelectorAll('.journey-step');
-    steps.forEach((step, i) => {
-      setTimeout(() => step.classList.add('revealed'), i * 100);
-    });
+    steps.forEach((step, i) => setTimeout(() => step.classList.add('revealed'), i * 100));
   }, 50);
 }
 
-// ——— DONATE SELECT ———
+// ——— DONATE ———
 function selectDonate(el) {
   document.querySelectorAll('.donate-btn').forEach(b => b.classList.remove('selected'));
   el.classList.add('selected');
 }
 
-// ——— COUNTER ANIMATION ———
+// ——— COUNTER ———
 function animateCounter(el) {
   const target = parseInt(el.dataset.target);
   const suffix = el.dataset.suffix || '';
@@ -1323,21 +1486,19 @@ function animateCounter(el) {
     const elapsed = now - start;
     const progress = Math.min(elapsed / duration, 1);
     const eased = 1 - Math.pow(1 - progress, 3);
-    const current = Math.round(eased * target);
-    el.textContent = current.toLocaleString() + suffix;
+    el.textContent = Math.round(eased * target).toLocaleString() + suffix;
     if (progress < 1) requestAnimationFrame(update);
   }
   requestAnimationFrame(update);
 }
 
-// ——— INTERSECTION OBSERVER ———
+// ——— REVEAL OBSERVER ———
 let countersDone = false;
 function initReveal() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('revealed');
-        // Counters
         const counters = entry.target.querySelectorAll('.counter');
         if (counters.length && !countersDone) {
           countersDone = true;
@@ -1347,13 +1508,10 @@ function initReveal() {
       }
     });
   }, { threshold: 0.12 });
-
   document.querySelectorAll('.reveal').forEach(el => {
     el.classList.remove('revealed');
     observer.observe(el);
   });
-
-  // Stats ribbon separate observer
   const statsRibbon = document.getElementById('sec-stats');
   if (statsRibbon) {
     const statsObs = new IntersectionObserver((entries) => {
@@ -1369,20 +1527,13 @@ function initReveal() {
   }
 }
 
-// ——— NAV SCROLL TINT ———
+// ——— NAV SCROLL ———
 window.addEventListener('scroll', () => {
-  const nav = document.getElementById('nav');
-  if (window.scrollY > 40) {
-    nav.style.background = 'rgba(7,7,26,0.97)';
-  } else {
-    nav.style.background = 'rgba(7,7,26,0.85)';
-  }
+  document.getElementById('nav').style.background =
+    window.scrollY > 40 ? 'rgba(7,7,26,0.97)' : 'rgba(7,7,26,0.85)';
 });
 
-// ——— INIT ———
-document.addEventListener('DOMContentLoaded', () => {
-  initReveal();
-});
+document.addEventListener('DOMContentLoaded', initReveal);
 initReveal();
 </script>
 </body>
