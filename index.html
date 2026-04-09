@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>APEX Initiatives — Join the Movement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --purple: #7F77DD;
+  --purple-light: #AFA9EC;
+  --purple-dark: #534AB7;
+  --green: #1D9E75;
+  --green-light: #5DCAA5;
+  --amber: #EF9F27;
+  --amber-light: #FAC775;
+  --bg: #07071a;
+  --bg2: #0c0c20;
+  --bg3: #0f0f28;
+  --text: #f0efff;
+  --muted: rgba(240,239,255,0.45);
+  --subtle: rgba(240,239,255,0.15);
+  --border: rgba(255,255,255,0.08);
+  --r: 14px;
+  --font-head: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+/* ——— SCROLLBAR ——— */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--purple-dark); border-radius: 2px; }
+
+/* ——— GRAIN OVERLAY ——— */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0; opacity: 0.6;
+}
+
+/* ——— NAV ——— */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  height: 64px; display: flex; align-items: center; padding: 0 2.5rem;
+  background: rgba(7,7,26,0.85); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s;
+}
+.nav-logo {
+  font-family: var(--font-head); font-size: 18px; font-weight: 800;
+  color: #fff; cursor: pointer; letter-spacing: -0.5px; flex: 0 0 auto;
+  transition: opacity 0.2s;
+}
+.nav-logo:hover { opacity: 0.8; }
+.nav-logo span { color: var(--purple); }
+.nav-center { flex: 1; display: flex; justify-content: center; }
+.nav-dropdown { position: relative; }
+.nav-dropdown-btn {
+  display: flex; align-items: center; gap: 5px;
+  background: none; border: none; color: rgba(255,255,255,0.6);
+  font-family: var(--font-body); font-size: 13.5px; cursor: pointer;
+  padding: 6px 14px; border-radius: 20px;
+  transition: color 0.2s, background 0.2s;
+}
+.nav-dropdown-btn:hover { color: #fff; background: rgba(255,255,255,0.07); }
+.nav-dropdown-btn .arrow {
+  display: inline-block; font-size: 10px; transition: transform 0.2s;
+}
+.nav-dropdown:hover .arrow { transform: rotate(180deg); }
+.nav-dropdown-menu {
+  position: absolute; top: calc(100% + 10px); left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  background: #12122e; border: 1px solid var(--border);
+  border-radius: var(--r); padding: 8px; min-width: 200px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.nav-dropdown:hover .nav-dropdown-menu {
+  opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0);
+}
+.nav-dropdown-item {
+  display: block; padding: 9px 14px; border-radius: 8px;
+  font-size: 13.5px; color: rgba(255,255,255,0.7); cursor: pointer;
+  transition: background 0.15s, color 0.15s; white-space: nowrap;
+}
+.nav-dropdown-item:hover { background: rgba(127,119,221,0.12); color: #fff; }
+.nav-dropdown-item .item-sub { font-size: 11px; color: rgba(255,255,255,0.35); display: block; margin-top: 1px; }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.nav-pill {
+  background: none; border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.65); font-size: 13px; padding: 6px 15px;
+  border-radius: 20px; cursor: pointer; font-family: var(--font-body);
+  transition: all 0.2s;
+}
+.nav-pill:hover { border-color: rgba(255,255,255,0.4); color: #fff; background: rgba(255,255,255,0.06); }
+.nav-cta {
+  background: var(--purple-dark); border: none; color: #fff;
+  font-family: var(--font-body); font-size: 13px; padding: 7px 18px;
+  border-radius: 20px; cursor: pointer; transition: background 0.2s, transform 0.15s;
+}
+.nav-cta:hover { background: var(--purple); transform: scale(1.03); }
+
+/* ——— SECTIONS ——— */
+.section { display: none; padding-top: 64px; }
+.section.active { display: block; }
+
+/* ——— HERO (HOME) ——— */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 100px 2rem 60px; position: relative; overflow: hidden;
+}
+.hero-glow {
+  position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 600px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(83,74,183,0.22) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-glow2 {
+  position: absolute; bottom: -150px; right: -100px;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(29,158,117,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(127,119,221,0.1); border: 1px solid rgba(127,119,221,0.25);
+  color: var(--purple-light); font-size: 11.5px; padding: 5px 14px;
+  border-radius: 20px; text-transform: uppercase; letter-spacing: 1.5px;
+  margin-bottom: 28px;
+  animation: fadeUp 0.8s ease forwards;
+}
+.eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-light); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+.hero h1 {
+  font-family: var(--font-head); font-size: clamp(46px, 7vw, 88px);
+  font-weight: 800; line-height: 1.0; letter-spacing: -3px;
+  max-width: 900px; margin: 0 auto 28px;
+  animation: fadeUp 0.8s 0.1s ease both;
+}
+.hero h1 .line2 { color: var(--purple-light); display: block; }
+.hero-sub {
+  font-size: 18px; color: var(--muted); max-width: 540px;
+  margin: 0 auto 40px; line-height: 1.7;
+  animation: fadeUp 0.8s 0.2s ease both;
+}
+.hero-btns {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+.btn-glow {
+  background: var(--purple-dark); color: #fff; border: none;
+  padding: 14px 32px; border-radius: 28px; font-size: 15px;
+  font-family: var(--font-body); cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 0 0 rgba(83,74,183,0);
+}
+.btn-glow:hover { background: var(--purple); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(83,74,183,0.4); }
+.btn-ghost {
+  background: none; color: rgba(255,255,255,0.7); font-family: var(--font-body);
+  border: 1px solid rgba(255,255,255,0.2); padding: 14px 32px; border-radius: 28px;
+  font-size: 15px; cursor: pointer; transition: all 0.2s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: #fff; background: rgba(255,255,255,0.05); }
+.hero-scroll {
+  margin-top: 70px; display: flex; flex-direction: column; align-items: center;
+  gap: 8px; animation: fadeUp 0.8s 0.5s ease both;
+}
+.scroll-dot {
+  width: 1px; height: 50px;
+  background: linear-gradient(to bottom, rgba(127,119,221,0.6), transparent);
+  animation: scrollPulse 1.8s infinite;
+}
+@keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+/* ——— VIDEO SECTION ——— */
+.video-section { padding: 80px 2rem; background: var(--bg2); position: relative; }
+.video-section-inner { max-width: 900px; margin: 0 auto; }
+.section-tag {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); margin-bottom: 16px; display: block;
+}
+.section-title {
+  font-family: var(--font-head); font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700; line-height: 1.15; margin-bottom: 12px; letter-spacing: -1px;
+}
+.section-sub { font-size: 16px; color: var(--muted); line-height: 1.65; margin-bottom: 40px; max-width: 560px; }
+.video-frame {
+  position: relative; aspect-ratio: 16/9; border-radius: 20px;
+  overflow: hidden; border: 1px solid var(--border);
+  background: #0a0a1e; cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.video-frame:hover { transform: scale(1.01); box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+.video-frame iframe { width: 100%; height: 100%; border: none; display: none; }
+.video-placeholder {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 20px;
+  background: linear-gradient(135deg, #0d0d2e 0%, #0a1a10 100%);
+}
+.play-btn {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: rgba(127,119,221,0.15); border: 2px solid rgba(127,119,221,0.4);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+}
+.play-btn:hover { background: rgba(127,119,221,0.3); transform: scale(1.08); }
+.play-btn svg { width: 26px; height: 26px; fill: var(--purple-light); margin-left: 4px; }
+.video-placeholder p { font-size: 14px; color: var(--muted); }
+.video-label {
+  position: absolute; top: 16px; left: 16px;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.8);
+  font-size: 12px; padding: 5px 12px; border-radius: 20px;
+}
+
+/* ——— WHY THIS EXISTS ——— */
+.why-section { padding: 100px 2rem; background: var(--bg); position: relative; overflow: hidden; }
+.why-bg-text {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-family: var(--font-head); font-size: 260px; font-weight: 800;
+  color: rgba(127,119,221,0.03); white-space: nowrap; pointer-events: none;
+  letter-spacing: -10px; user-select: none;
+}
+.why-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.why-quote {
+  font-family: var(--font-head); font-size: clamp(24px, 3vw, 36px);
+  font-weight: 700; line-height: 1.2; letter-spacing: -1px;
+}
+.why-quote em { color: var(--purple-light); font-style: normal; }
+.why-content { display: flex; flex-direction: column; gap: 28px; }
+.why-stat-row { display: flex; gap: 20px; }
+.why-stat-box {
+  flex: 1; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 20px;
+}
+.why-stat-num { font-family: var(--font-head); font-size: 32px; font-weight: 800; color: #fff; }
+.why-stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.why-text { font-size: 15px; color: var(--muted); line-height: 1.75; }
+.why-origin {
+  background: rgba(127,119,221,0.06); border: 1px solid rgba(127,119,221,0.15);
+  border-left: 3px solid var(--purple); border-radius: 0 var(--r) var(--r) 0;
+  padding: 20px 24px;
+}
+.why-origin p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; font-style: italic; }
+.why-origin cite { font-size: 12px; color: var(--purple-light); display: block; margin-top: 8px; font-style: normal; }
+
+/* ——— ANIMATED STATS ——— */
+.stats-ribbon {
+  background: var(--bg3); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 50px 2rem; overflow: hidden; position: relative;
+}
+.stats-track { display: flex; justify-content: space-around; max-width: 1100px; margin: 0 auto; }
+.stat-item { text-align: center; }
+.stat-num {
+  font-family: var(--font-head); font-size: clamp(40px, 5vw, 60px);
+  font-weight: 800; letter-spacing: -2px; color: #fff;
+  display: flex; align-items: baseline; justify-content: center; gap: 2px;
+}
+.stat-num .suffix { font-size: 0.6em; color: var(--purple-light); }
+.stat-label { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+/* ——— JOURNEY ——— */
+.journey-section { padding: 100px 2rem; background: var(--bg2); }
+.journey-inner { max-width: 900px; margin: 0 auto; }
+.journey-header { text-align: center; margin-bottom: 60px; }
+.program-chooser { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 48px; }
+.prog-choice {
+  border-radius: var(--r); padding: 20px; cursor: pointer;
+  border: 2px solid transparent; transition: all 0.25s; text-align: center;
+  background: rgba(255,255,255,0.03);
+}
+.prog-choice:hover { transform: translateY(-3px); }
+.prog-choice.purple-theme { border-color: rgba(127,119,221,0.2); }
+.prog-choice.purple-theme:hover, .prog-choice.purple-theme.active { border-color: var(--purple); background: rgba(127,119,221,0.08); }
+.prog-choice.green-theme { border-color: rgba(29,158,117,0.2); }
+.prog-choice.green-theme:hover, .prog-choice.green-theme.active { border-color: var(--green); background: rgba(29,158,117,0.08); }
+.prog-choice.amber-theme { border-color: rgba(239,159,39,0.2); }
+.prog-choice.amber-theme:hover, .prog-choice.amber-theme.active { border-color: var(--amber); background: rgba(239,159,39,0.08); }
+.prog-choice-icon { font-size: 28px; margin-bottom: 10px; }
+.prog-choice h3 { font-family: var(--font-head); font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.prog-choice p { font-size: 12px; color: var(--muted); }
+.journey-flow { display: none; }
+.journey-flow.active { display: block; animation: fadeUp 0.4s ease; }
+.journey-steps { display: flex; flex-direction: column; gap: 0; }
+.journey-step {
+  display: flex; gap: 24px; align-items: flex-start;
+  padding: 24px 0; border-bottom: 1px solid var(--border);
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+.journey-step.revealed { opacity: 1; transform: translateY(0); }
+.step-num {
+  flex: 0 0 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-size: 14px; font-weight: 800;
+}
+.step-num.purple { background: rgba(127,119,221,0.15); color: var(--purple-light); }
+.step-num.green { background: rgba(29,158,117,0.15); color: var(--green-light); }
+.step-num.amber { background: rgba(239,159,39,0.15); color: var(--amber-light); }
+.step-body { flex: 1; }
+.step-body h4 { font-family: var(--font-head); font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.step-body p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+.step-action { margin-top: 12px; }
+.step-btn {
+  border: none; padding: 8px 18px; border-radius: 20px; font-size: 13px;
+  cursor: pointer; font-family: var(--font-body); transition: all 0.2s;
+}
+.step-btn.purple { background: rgba(127,119,221,0.15); color: var(--purple-light); }
+.step-btn.purple:hover { background: rgba(127,119,221,0.3); }
+.step-btn.green { background: rgba(29,158,117,0.15); color: var(--green-light); }
+.step-btn.green:hover { background: rgba(29,158,117,0.3); }
+.step-btn.amber { background: rgba(239,159,39,0.15); color: var(--amber-light); }
+.step-btn.amber:hover { background: rgba(239,159,39,0.3); }
+
+/* ——— BRANCHES (main cards) ——— */
+.branches-section { padding: 100px 2rem; background: var(--bg); }
+.branches-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 50px; }
+.branch-card {
+  border-radius: 20px; padding: 32px; cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: transform 0.25s, box-shadow 0.25s;
+  position: relative; overflow: hidden;
+}
+.branch-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+.branch-card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
+.branch-card.sat-card { background: linear-gradient(160deg, #13103a 0%, #090720 100%); }
+.branch-card.health-card { background: linear-gradient(160deg, #0e231a 0%, #06110d 100%); }
+.branch-card.biz-card { background: linear-gradient(160deg, #1e1500 0%, #0e0c00 100%); }
+.branch-icon-wrap {
+  width: 48px; height: 48px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 20px;
+}
+.branch-icon-wrap.pur { background: rgba(127,119,221,0.18); }
+.branch-icon-wrap.grn { background: rgba(29,158,117,0.18); }
+.branch-icon-wrap.amb { background: rgba(239,159,39,0.18); }
+.branch-card h3 { font-family: var(--font-head); font-size: 20px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.5px; }
+.branch-card p { font-size: 13.5px; color: var(--muted); line-height: 1.65; margin-bottom: 20px; }
+.branch-explore { font-size: 13px; display: flex; align-items: center; gap: 6px; font-weight: 500; }
+.branch-explore.pur { color: var(--purple-light); }
+.branch-explore.grn { color: var(--green-light); }
+.branch-explore.amb { color: var(--amber-light); }
+.branch-explore .arr { transition: transform 0.2s; }
+.branch-card:hover .arr { transform: translateX(5px); }
+.branch-features { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+.branch-feature { font-size: 12px; color: rgba(255,255,255,0.5); display: flex; align-items: center; gap: 8px; }
+.feat-dot { width: 4px; height: 4px; border-radius: 50%; }
+.feat-dot.pur { background: var(--purple-light); }
+.feat-dot.grn { background: var(--green-light); }
+.feat-dot.amb { background: var(--amber-light); }
+
+/* ——— SOCIAL PROOF ——— */
+.proof-section { padding: 100px 2rem; background: var(--bg2); }
+.proof-inner { max-width: 1100px; margin: 0 auto; }
+.proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 50px; }
+.proof-card {
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 26px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.proof-card:hover { border-color: rgba(127,119,221,0.3); transform: translateY(-3px); }
+.proof-stars { display: flex; gap: 3px; margin-bottom: 14px; }
+.star { color: var(--amber-light); font-size: 13px; }
+.proof-text { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 18px; font-style: italic; }
+.proof-author { display: flex; align-items: center; gap: 10px; }
+.proof-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-size: 12px; font-weight: 700;
+}
+.proof-author-name { font-size: 13px; font-weight: 500; }
+.proof-author-detail { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.proof-tag { display: inline-block; font-size: 10px; padding: 2px 9px; border-radius: 10px; margin-bottom: 10px; }
+.proof-add {
+  grid-column: span 3; border: 2px dashed rgba(255,255,255,0.08); border-radius: var(--r);
+  padding: 30px; text-align: center; display: flex; flex-direction: column;
+  align-items: center; gap: 10px; cursor: pointer; transition: border-color 0.2s, background 0.2s;
+}
+.proof-add:hover { border-color: rgba(127,119,221,0.3); background: rgba(127,119,221,0.04); }
+.proof-add-icon { font-size: 24px; opacity: 0.4; }
+.proof-add p { font-size: 13px; color: var(--muted); }
+
+/* ——— ABOUT / TEAM ——— */
+.about-section { padding: 100px 2rem; background: var(--bg); }
+.about-inner { max-width: 1100px; margin: 0 auto; }
+.about-intro { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; margin-bottom: 80px; }
+.about-text h2 { font-family: var(--font-head); font-size: clamp(28px, 3.5vw, 42px); font-weight: 800; line-height: 1.15; letter-spacing: -1.5px; margin-bottom: 20px; }
+.about-text h2 em { color: var(--purple-light); font-style: normal; }
+.about-text p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+.about-values { display: flex; flex-direction: column; gap: 14px; }
+.value-row {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 18px;
+  transition: border-color 0.2s;
+}
+.value-row:hover { border-color: rgba(127,119,221,0.2); }
+.value-icon { font-size: 20px; flex: 0 0 32px; }
+.value-title { font-family: var(--font-head); font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+.value-desc { font-size: 13px; color: var(--muted); }
+.team-section { margin-top: 30px; }
+.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 36px; }
+.team-card {
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 22px; text-align: center;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.team-card:hover { transform: translateY(-4px); border-color: rgba(127,119,221,0.25); }
+.team-avatar {
+  width: 60px; height: 60px; border-radius: 50%;
+  margin: 0 auto 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-size: 18px; font-weight: 800;
+}
+.team-name { font-family: var(--font-head); font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.team-role { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.team-school { font-size: 11px; color: var(--purple-light); }
+.team-placeholder {
+  border: 2px dashed rgba(255,255,255,0.08); border-radius: var(--r);
+  padding: 22px; text-align: center; opacity: 0.5;
+}
+.team-placeholder p { font-size: 12px; color: var(--muted); }
+
+/* ——— VOLUNTEER / MENTOR ——— */
+.volunteer-section { padding: 100px 2rem; background: var(--bg2); position: relative; overflow: hidden; }
+.vol-glow {
+  position: absolute; right: -100px; top: 50%; transform: translateY(-50%);
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(29,158,117,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.volunteer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.vol-left h2 { font-family: var(--font-head); font-size: clamp(28px, 3.5vw, 42px); font-weight: 800; line-height: 1.15; letter-spacing: -1.5px; margin-bottom: 16px; }
+.vol-left h2 em { color: var(--green-light); font-style: normal; }
+.vol-left p { font-size: 15px; color: var(--muted); line-height: 1.75; margin-bottom: 28px; }
+.vol-roles { display: flex; flex-direction: column; gap: 10px; }
+.vol-role {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(29,158,117,0.05); border: 1px solid rgba(29,158,117,0.1);
+  border-radius: var(--r); padding: 14px 18px; cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.vol-role:hover { background: rgba(29,158,117,0.1); border-color: rgba(29,158,117,0.25); transform: translateX(4px); }
+.vol-role-icon { font-size: 18px; flex: 0 0 32px; }
+.vol-role-title { font-size: 14px; font-weight: 500; }
+.vol-role-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.vol-form {
+  background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+  border-radius: 20px; padding: 32px;
+}
+.vol-form h3 { font-family: var(--font-head); font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.vol-form p { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+.form-field { margin-bottom: 14px; }
+.form-field label { display: block; font-size: 12px; color: rgba(255,255,255,0.45); margin-bottom: 6px; letter-spacing: 0.5px; }
+.form-field input, .form-field select, .form-field textarea {
+  width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  color: #fff; padding: 10px 14px; border-radius: 10px; font-size: 14px;
+  font-family: var(--font-body); outline: none; transition: border-color 0.2s;
+}
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: rgba(29,158,117,0.5); }
+.form-field select option { background: #0c0c20; }
+.form-field textarea { height: 80px; resize: none; }
+.btn-submit-green {
+  width: 100%; background: #0F6E56; border: none; color: #fff;
+  padding: 12px; border-radius: 10px; font-size: 15px; font-family: var(--font-body);
+  cursor: pointer; transition: background 0.2s, transform 0.15s; margin-top: 6px;
+}
+.btn-submit-green:hover { background: var(--green); transform: translateY(-1px); }
+
+/* ——— SUPPORT / DONORS ——— */
+.support-section { padding: 100px 2rem; background: var(--bg); }
+.support-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
+.support-header { margin-bottom: 60px; }
+.support-header h2 { font-family: var(--font-head); font-size: clamp(28px, 4vw, 50px); font-weight: 800; line-height: 1.1; letter-spacing: -2px; margin-bottom: 16px; }
+.support-header h2 em { color: var(--amber-light); font-style: normal; }
+.support-header p { font-size: 16px; color: var(--muted); max-width: 480px; margin: 0 auto; line-height: 1.65; }
+.support-ways { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 60px; }
+.support-way {
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 28px; text-align: left;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.support-way:hover { border-color: rgba(239,159,39,0.2); transform: translateY(-3px); }
+.support-way-icon { font-size: 24px; margin-bottom: 14px; }
+.support-way h3 { font-family: var(--font-head); font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.support-way p { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+.support-way-btn {
+  font-size: 13px; color: var(--amber-light); background: none; border: none;
+  cursor: pointer; display: flex; align-items: center; gap: 5px;
+  font-family: var(--font-body); transition: gap 0.2s;
+}
+.support-way-btn:hover { gap: 8px; }
+.donate-widget {
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: 20px; padding: 40px; margin-bottom: 32px;
+}
+.donate-amounts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+.donate-btn {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+  color: #fff; padding: 14px 10px; border-radius: 10px; cursor: pointer;
+  font-family: var(--font-head); font-size: 18px; font-weight: 700;
+  transition: all 0.2s; text-align: center;
+}
+.donate-btn.selected, .donate-btn:hover { border-color: var(--amber); background: rgba(239,159,39,0.1); color: var(--amber-light); }
+.donate-label { font-size: 11px; font-weight: 400; color: var(--muted); display: block; margin-top: 2px; font-family: var(--font-body); }
+.donate-input-row { display: flex; gap: 10px; margin-top: 16px; }
+.donate-input-row input {
+  flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  color: #fff; padding: 12px 14px; border-radius: 10px; font-size: 15px;
+  font-family: var(--font-body); outline: none;
+}
+.btn-donate {
+  background: #854F0B; border: none; color: #fff; padding: 12px 28px;
+  border-radius: 10px; font-size: 15px; font-family: var(--font-body);
+  cursor: pointer; transition: background 0.2s, transform 0.15s; white-space: nowrap;
+}
+.btn-donate:hover { background: var(--amber); transform: translateY(-1px); }
+.tax-note { font-size: 12px; color: rgba(255,255,255,0.25); margin-top: 12px; }
+
+/* ——— BRANCH PAGES ——— */
+.branch-page { display: none; }
+.branch-page.active { display: block; }
+
+/* SAT page */
+.sat-hero { padding: 80px 2rem 60px; text-align: center; background: #08051e; position: relative; overflow: hidden; }
+.sat-glow { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 400px; border-radius: 50%; background: radial-gradient(ellipse, rgba(83,74,183,0.25) 0%, transparent 70%); pointer-events: none; }
+.health-hero { padding: 80px 2rem 60px; text-align: center; background: #041209; position: relative; overflow: hidden; }
+.health-glow { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 400px; border-radius: 50%; background: radial-gradient(ellipse, rgba(15,110,86,0.2) 0%, transparent 70%); pointer-events: none; }
+.biz-hero { padding: 80px 2rem 60px; text-align: center; background: #0d0900; position: relative; overflow: hidden; }
+.biz-glow { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 400px; border-radius: 50%; background: radial-gradient(ellipse, rgba(133,79,11,0.25) 0%, transparent 70%); pointer-events: none; }
+
+.branch-hero-tag { display: inline-block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 22px; }
+.branch-hero-tag.pur { background: rgba(127,119,221,0.12); border: 1px solid rgba(127,119,221,0.25); color: var(--purple-light); }
+.branch-hero-tag.grn { background: rgba(29,158,117,0.12); border: 1px solid rgba(29,158,117,0.25); color: var(--green-light); }
+.branch-hero-tag.amb { background: rgba(239,159,39,0.12); border: 1px solid rgba(239,159,39,0.25); color: var(--amber-light); }
+
+.branch-h1 { font-family: var(--font-head); font-size: clamp(36px, 5vw, 60px); font-weight: 800; letter-spacing: -2px; line-height: 1.1; max-width: 640px; margin: 0 auto 18px; }
+.branch-sub { font-size: 17px; color: var(--muted); max-width: 500px; margin: 0 auto 36px; line-height: 1.65; }
+
+.offerings-section { padding: 60px 2rem; }
+.offerings-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 1000px; margin: 0 auto; }
+.offer-tile { border-radius: var(--r); padding: 24px; transition: transform 0.2s; }
+.offer-tile:hover { transform: translateY(-3px); }
+.offer-tile.pur { background: rgba(127,119,221,0.06); border: 1px solid rgba(127,119,221,0.15); }
+.offer-tile.grn { background: rgba(29,158,117,0.06); border: 1px solid rgba(29,158,117,0.15); }
+.offer-tile.amb { background: rgba(239,159,39,0.06); border: 1px solid rgba(239,159,39,0.15); }
+.offer-tile-tag { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 10px; margin-bottom: 12px; display: inline-block; }
+.offer-tile-tag.pur { background: rgba(127,119,221,0.15); color: var(--purple-light); }
+.offer-tile-tag.grn { background: rgba(29,158,117,0.15); color: var(--green-light); }
+.offer-tile-tag.amb { background: rgba(239,159,39,0.15); color: var(--amber-light); }
+.offer-tile h3 { font-family: var(--font-head); font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.offer-tile p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* Signup boxes */
+.signup-section { padding: 60px 2rem 80px; }
+.signup-box {
+  max-width: 560px; margin: 0 auto; border-radius: 20px; padding: 40px;
+}
+.signup-box.pur { background: rgba(127,119,221,0.06); border: 1px solid rgba(127,119,221,0.18); }
+.signup-box.grn { background: rgba(29,158,117,0.06); border: 1px solid rgba(29,158,117,0.18); }
+.signup-box.amb { background: rgba(239,159,39,0.06); border: 1px solid rgba(239,159,39,0.18); }
+.signup-box h2 { font-family: var(--font-head); font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+.signup-box p { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+.signup-field { margin-bottom: 12px; }
+.signup-field input, .signup-field select {
+  width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  color: #fff; padding: 11px 14px; border-radius: 10px; font-size: 14px;
+  font-family: var(--font-body); outline: none; transition: border-color 0.2s;
+}
+.signup-field input:focus { border-color: rgba(127,119,221,0.4); }
+.signup-field select option { background: #0c0c20; }
+.btn-signup {
+  width: 100%; border: none; color: #fff; padding: 13px;
+  border-radius: 10px; font-size: 15px; font-family: var(--font-body);
+  cursor: pointer; transition: all 0.2s; margin-top: 6px;
+}
+.btn-signup.pur { background: var(--purple-dark); }
+.btn-signup.pur:hover { background: var(--purple); transform: translateY(-1px); }
+.btn-signup.grn { background: #0F6E56; }
+.btn-signup.grn:hover { background: var(--green); transform: translateY(-1px); }
+.btn-signup.amb { background: #854F0B; }
+.btn-signup.amb:hover { background: var(--amber); transform: translateY(-1px); }
+
+.branch-back { padding: 20px 2rem; text-align: center; border-top: 1px solid var(--border); }
+.back-btn { background: none; border: none; color: rgba(255,255,255,0.35); font-size: 13px; cursor: pointer; font-family: var(--font-body); transition: color 0.2s; }
+.back-btn:hover { color: rgba(255,255,255,0.7); }
+
+/* ——— GLOBAL FOOTER ——— */
+.site-footer { background: #030310; padding: 50px 2rem 32px; border-top: 1px solid var(--border); }
+.footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand .logo { font-family: var(--font-head); font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+.footer-brand .logo span { color: var(--purple); }
+.footer-brand p { font-size: 13px; color: rgba(255,255,255,0.3); line-height: 1.7; max-width: 220px; }
+.footer-col h4 { font-family: var(--font-head); font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.4); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px; }
+.footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,0.45); cursor: pointer; margin-bottom: 8px; transition: color 0.2s; }
+.footer-col a:hover { color: rgba(255,255,255,0.8); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+.footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.2); }
+
+/* ——— ANIMATIONS ——— */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.revealed { opacity: 1; transform: translateY(0); }
+
+/* ——— RESPONSIVE ——— */
+@media (max-width: 900px) {
+  .why-inner, .about-intro, .volunteer-inner { grid-template-columns: 1fr; gap: 40px; }
+  .branches-grid, .proof-grid, .team-grid, .support-ways, .offerings-grid { grid-template-columns: 1fr; }
+  .program-chooser { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .donate-amounts { grid-template-columns: repeat(2,1fr); }
+  .proof-add { grid-column: span 1; }
+}
+@media (max-width: 640px) {
+  .nav-center { display: none; }
+  .hero h1 { letter-spacing: -1.5px; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .donate-amounts { grid-template-columns: repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-logo" onclick="goHome()">APEX <span>Initiatives</span></div>
+  <div class="nav-center">
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-btn">About <span class="arrow">▾</span></button>
+      <div class="nav-dropdown-menu">
+        <div class="nav-dropdown-item" onclick="scrollToSection('why')">Why We Exist<span class="item-sub">Our origin story</span></div>
+        <div class="nav-dropdown-item" onclick="scrollToSection('about')">Leadership Team<span class="item-sub">Meet our people</span></div>
+        <div class="nav-dropdown-item" onclick="scrollToSection('proof')">Impact Stories<span class="item-sub">Real testimonials</span></div>
+      </div>
+    </div>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-btn">Programs <span class="arrow">▾</span></button>
+      <div class="nav-dropdown-menu">
+        <div class="nav-dropdown-item" onclick="showBranch('sat')">APEX SAT<span class="item-sub">College prep & consulting</span></div>
+        <div class="nav-dropdown-item" onclick="showBranch('health')">APEX Health<span class="item-sub">Healthcare careers</span></div>
+        <div class="nav-dropdown-item" onclick="showBranch('biz')">APEX Business<span class="item-sub">Finance & entrepreneurship</span></div>
+      </div>
+    </div>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-btn">Impact <span class="arrow">▾</span></button>
+      <div class="nav-dropdown-menu">
+        <div class="nav-dropdown-item" onclick="scrollToSection('stats')">Our Numbers<span class="item-sub">Reach & outcomes</span></div>
+        <div class="nav-dropdown-item" onclick="scrollToSection('proof')">Student Stories<span class="item-sub">Social proof</span></div>
+      </div>
+    </div>
+    <button class="nav-dropdown-btn" onclick="scrollToSection('volunteer')">Volunteer</button>
+    <button class="nav-dropdown-btn" onclick="scrollToSection('support')">Donate</button>
+  </div>
+  <div class="nav-right">
+    <button class="nav-pill" onclick="scrollToSection('journey')">Find my program</button>
+    <button class="nav-cta" onclick="scrollToSection('journey')">Join the movement →</button>
+  </div>
+</nav>
+
+<!-- ══════════════ HOME ══════════════ -->
+<div id="page-home" class="section active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-glow2"></div>
+    <div class="eyebrow">
+      <span class="eyebrow-dot"></span>
+      501(c)(3) · Student-Led · Always Free
+    </div>
+    <h1>
+      This is where potential
+      <span class="line2">becomes unstoppable.</span>
+    </h1>
+    <p class="hero-sub">Free, peer-to-peer education across college prep, healthcare, 
+      and business for students who deserve the same shot as everyone else.</p>
+    <div class="hero-btns">
+      <button class="btn-glow" onclick="scrollToSection('journey')">Find your program →</button>
+      <button class="btn-ghost" onclick="scrollToSection('why')">Why we exist</button>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-dot"></div>
+    </div>
+  </section>
+
+  <!-- VIDEO SECTION -->
+  <section class="video-section" id="sec-video">
+    <div class="video-section-inner">
+      <span class="section-tag">Our story</span>
+      <h2 class="section-title reveal">Watch what happens<br>when access meets ambition</h2>
+      <p class="section-sub reveal">A 3-minute look at who we are, what we do, and why it matters.</p>
+      <div class="video-frame reveal" id="videoFrame" onclick="loadVideo()">
+        <div class="video-placeholder" id="videoPlaceholder">
+          <div class="play-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <p>Play — Our Impact Story</p>
+        </div>
+        <iframe id="videoIframe" src="" allowfullscreen></iframe>
+        <div class="video-label">⬤ APEX Initiatives — 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-ribbon" id="sec-stats">
+    <div class="stats-track">
+      <div class="stat-item reveal">
+        <div class="stat-num"><span class="counter" data-target="9000" data-suffix="+">0</span></div>
+        <div class="stat-label">Students reached worldwide</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-num"><span class="counter" data-target="60" data-suffix="+">0</span></div>
+        <div class="stat-label">Countries served</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-num"><span class="counter" data-target="100" data-suffix="%">0</span></div>
+        <div class="stat-label">Free, forever</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-num"><span class="counter" data-target="320" data-suffix="+">0</span></div>
+        <div class="stat-label">Volunteer mentors</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY THIS EXISTS -->
+  <section class="why-section" id="sec-why">
+    <div class="why-bg-text">WHY</div>
+    <div class="why-inner">
+      <div>
+        <div class="why-origin reveal">
+          <p>"I got into a top university. My best friend just as smart, 
+            just as driven didn't even know where to apply. 
+            The difference wasn't talent. It was access."</p>
+          <cite>— APEX Founder, Class of 2023</cite>
+        </div>
+        <br>
+        <p class="why-text reveal">In 2022, a group of college students realized the opportunities that changed their lives 
+           test prep, mentorship, application coaching were invisible to most of the world. Not because students didn't want 
+           them. Because they didn't know they existed, or couldn't afford them.</p>
+        <p class="why-text reveal" style="margin-top:14px;">So they built APEX Initiatives. No fees. No gatekeeping. 
+          No prerequisites. Just students helping students, 
+          in three of the most opportunity-defining fields on earth.</p>
+        <div class="why-stat-row reveal" style="margin-top:28px;">
+          <div class="why-stat-box">
+            <div class="why-stat-num" style="color:var(--purple-light)">$0</div>
+            <div class="why-stat-label">Cost to any student, ever</div>
+          </div>
+          <div class="why-stat-box">
+            <div class="why-stat-num" style="color:var(--green-light)">4yrs</div>
+            <div class="why-stat-label">Building this from the ground up</div>
+          </div>
+          <div class="why-stat-box">
+            <div class="why-stat-num" style="color:var(--amber-light)">3</div>
+            <div class="why-stat-label">Verticals changing student lives</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="section-tag">Why we exist</span>
+        <h2 class="why-quote reveal" style="margin-top:12px;">
+          Talent is <em>everywhere</em>.<br>Opportunity is <em>not</em>.<br>We're here to fix that.
+        </h2>
+        <br>
+        <p class="why-text reveal">Test prep companies charge $150/hour. College consultants charge $5,000 a package. Medical school advisors cost thousands. These barriers don't reflect who deserves access just who can afford it.</p>
+        <p class="why-text reveal" style="margin-top:14px;">APEX exists because the gap between knowing and not knowing something changes entire life trajectories. We close that gap permanently, freely, globally.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNEY -->
+  <section class="journey-section" id="sec-journey">
+    <div class="journey-inner">
+      <div class="journey-header">
+        <span class="section-tag">Your path</span>
+        <h2 class="section-title reveal">Not sure where to start?<br>We'll show you.</h2>
+        <p class="section-sub reveal" style="margin: 0 auto;">Choose the area that excites you and we'll walk you through exactly how to get involved.</p>
+      </div>
+
+      <div class="program-chooser reveal">
+        <div class="prog-choice purple-theme" onclick="selectJourney('sat', this)">
+          <div class="prog-choice-icon">📚</div>
+          <h3>College & SAT Prep</h3>
+          <p>Crush standardized tests, ace applications</p>
+        </div>
+        <div class="prog-choice green-theme" onclick="selectJourney('health', this)">
+          <div class="prog-choice-icon">⚕️</div>
+          <h3>Healthcare Careers</h3>
+          <p>Explore medicine, nursing & public health</p>
+        </div>
+        <div class="prog-choice amber-theme" onclick="selectJourney('biz', this)">
+          <div class="prog-choice-icon">💼</div>
+          <h3>Business & Finance</h3>
+          <p>Build wealth, launch ventures, find your path</p>
+        </div>
+      </div>
+
+      <div id="journey-sat" class="journey-flow">
+        <div class="journey-steps">
+          <div class="journey-step"><div class="step-num purple">1</div><div class="step-body"><h4>Tell us your goal</h4><p>Whether you're aiming for a 1500+ SAT score, AP credit, or admission to a top-15 university we tailor everything to your goal.</p><div class="step-action"><button class="step-btn purple" onclick="showBranch('sat')">See all SAT programs →</button></div></div></div>
+          <div class="journey-step"><div class="step-num purple">2</div><div class="step-body"><h4>Get matched with a mentor</h4><p>We pair you with a student from Yale, Stanford, Harvard, or MIT who's navigated exactly what you're going through.</p></div></div>
+          <div class="journey-step"><div class="step-num purple">3</div><div class="step-body"><h4>Join your cohort</h4><p>Live sessions, practice tests, essay reviews, and strategy structured and free. No paying for a Zoom link.</p></div></div>
+          <div class="journey-step"><div class="step-num purple">4</div><div class="step-body"><h4>Apply & get in</h4><p>Your mentor helps you through final apps, financial aid questions, and decision day. Then you become the mentor for the next generation.</p><div class="step-action"><button class="step-btn purple" onclick="showBranch('sat')">Sign up for APEX SAT →</button></div></div></div>
+        </div>
+      </div>
+
+      <div id="journey-health" class="journey-flow">
+        <div class="journey-steps">
+          <div class="journey-step"><div class="step-num green">1</div><div class="step-body"><h4>Explore what's possible</h4><p>Medicine, nursing, pharmacy, public health, PA attend a career webinar with students already in these programs to see what each path looks like.</p><div class="step-action"><button class="step-btn green" onclick="showBranch('health')">See APEX Health programs →</button></div></div></div>
+          <div class="journey-step"><div class="step-num green">2</div><div class="step-body"><h4>Join a health literacy workshop</h4><p>Start with the basics. Our practical workshops cover nutrition, mental health, first aid real skills that matter regardless of which direction you go.</p></div></div>
+          <div class="journey-step"><div class="step-num green">3</div><div class="step-body"><h4>Get a pre-health mentor</h4><p>Paired with a college pre-med or nursing student who guides you through coursework, extracurriculars, and what healthcare school applications actually require.</p></div></div>
+          <div class="journey-step"><div class="step-num green">4</div><div class="step-body"><h4>Build your application profile</h4><p>Volunteer hours, research, shadowing your mentor helps you understand what healthcare schools actually look for, well before you apply.</p><div class="step-action"><button class="step-btn green" onclick="showBranch('health')">Join APEX Health →</button></div></div></div>
+        </div>
+      </div>
+
+      <div id="journey-biz" class="journey-flow">
+        <div class="journey-steps">
+          <div class="journey-step"><div class="step-num amber">1</div><div class="step-body"><h4>Start with financial literacy</h4><p>Before anything else — understand how money works. Budgeting, credit, compound interest, investing basics. The foundation nobody taught you.</p><div class="step-action"><button class="step-btn amber" onclick="showBranch('biz')">See APEX Business programs →</button></div></div></div>
+          <div class="journey-step"><div class="step-num amber">2</div><div class="step-body"><h4>Choose your track</h4><p>Entrepreneurship bootcamp, corporate finance path, consulting prep, or startup mentorship we build your program around where you want to go.</p></div></div>
+          <div class="journey-step"><div class="step-num amber">3</div><div class="step-body"><h4>Get career-ready</h4><p>Resume, LinkedIn, networking strategy, mock interviews everything to land your first internship, built with your mentor from a top business school.</p></div></div>
+          <div class="journey-step"><div class="step-num amber">4</div><div class="step-body"><h4>Compete & build</h4><p>Enter pitch competitions, case challenges, and stock market simulations. Then mentor the next wave of students through the same journey.</p><div class="step-action"><button class="step-btn amber" onclick="showBranch('biz')">Join APEX Business →</button></div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRANCHES -->
+  <section class="branches-section" id="sec-branches">
+    <div style="max-width:1100px; margin:0 auto;">
+      <span class="section-tag">Three verticals</span>
+      <h2 class="section-title reveal">Every program.<br>Zero cost.</h2>
+      <div class="branches-grid">
+        <div class="branch-card sat-card reveal" onclick="showBranch('sat')">
+          <div class="branch-icon-wrap pur">📚</div>
+          <h3>APEX SAT</h3>
+          <p>Full SAT/AP prep, college consulting, and application strategy from students at the world's top universities.</p>
+          <div class="branch-features">
+            <div class="branch-feature"><span class="feat-dot pur"></span>SAT prep & practice exams</div>
+            <div class="branch-feature"><span class="feat-dot pur"></span>AP subject tutoring</div>
+            <div class="branch-feature"><span class="feat-dot pur"></span>Essay review & consulting</div>
+            <div class="branch-feature"><span class="feat-dot pur"></span>Mentors from Yale, Stanford, MIT</div>
+          </div>
+          <div class="branch-explore pur">Explore APEX SAT <span class="arr">→</span></div>
+        </div>
+        <div class="branch-card health-card reveal" onclick="showBranch('health')">
+          <div class="branch-icon-wrap grn">⚕️</div>
+          <h3>APEX Health</h3>
+          <p>Healthcare career exploration, health literacy workshops, first aid training, and pre-med mentorship.</p>
+          <div class="branch-features">
+            <div class="branch-feature"><span class="feat-dot grn"></span>Health literacy & CPR</div>
+            <div class="branch-feature"><span class="feat-dot grn"></span>Pre-med/nursing mentorship</div>
+            <div class="branch-feature"><span class="feat-dot grn"></span>Healthcare career webinars</div>
+            <div class="branch-feature"><span class="feat-dot grn"></span>Mental health support</div>
+          </div>
+          <div class="branch-explore grn">Explore APEX Health <span class="arr">→</span></div>
+        </div>
+        <div class="branch-card biz-card reveal" onclick="showBranch('biz')">
+          <div class="branch-icon-wrap amb">💼</div>
+          <h3>APEX Business</h3>
+          <p>Financial literacy, entrepreneurship bootcamps, career readiness, and mentorship into finance and startups.</p>
+          <div class="branch-features">
+            <div class="branch-feature"><span class="feat-dot amb"></span>Financial literacy & investing</div>
+            <div class="branch-feature"><span class="feat-dot amb"></span>Entrepreneurship bootcamp</div>
+            <div class="branch-feature"><span class="feat-dot amb"></span>Resume, LinkedIn & interview</div>
+            <div class="branch-feature"><span class="feat-dot amb"></span>Pitch competitions</div>
+          </div>
+          <div class="branch-explore amb">Explore APEX Business <span class="arr">→</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section class="proof-section" id="sec-proof">
+    <div class="proof-inner">
+      <span class="section-tag">Student stories</span>
+      <h2 class="section-title reveal">What students say</h2>
+      <p class="section-sub reveal">Real words from real students. These will be updated as testimonials come in.</p>
+      <div class="proof-grid">
+        <div class="proof-card reveal">
+          <div class="proof-tag" style="background:rgba(127,119,221,0.12);color:var(--purple-light);">APEX SAT</div>
+          <div class="proof-stars">★★★★★</div>
+          <p class="proof-text">"My family couldn't afford a tutor. APEX matched me with someone who went to UPenn and genuinely cared. I went from a 1180 to a 1420 in 3 months."</p>
+          <div class="proof-author">
+            <div class="proof-avatar" style="background:rgba(127,119,221,0.2);color:var(--purple-light);">AM</div>
+            <div>
+              <div class="proof-author-name">Amara M.</div>
+              <div class="proof-author-detail">Nigeria → University of Michigan</div>
+            </div>
+          </div>
+        </div>
+        <div class="proof-card reveal">
+          <div class="proof-tag" style="background:rgba(29,158,117,0.12);color:var(--green-light);">APEX Health</div>
+          <div class="proof-stars">★★★★★</div>
+          <p class="proof-text">"I had no idea what a pre-med path even looked like. My APEX mentor helped me plan 4 years of coursework and get my first shadowing experience."</p>
+          <div class="proof-author">
+            <div class="proof-avatar" style="background:rgba(29,158,117,0.2);color:var(--green-light);">JS</div>
+            <div>
+              <div class="proof-author-name">Jordan S.</div>
+              <div class="proof-author-detail">Rural Texas → Pre-med at UT Austin</div>
+            </div>
+          </div>
+        </div>
+        <div class="proof-card reveal">
+          <div class="proof-tag" style="background:rgba(239,159,39,0.12);color:var(--amber-light);">APEX Business</div>
+          <div class="proof-stars">★★★★★</div>
+          <p class="proof-text">"I was the first in my family to understand what a stock was. APEX's bootcamp gave me the confidence to launch a small business at 16. Now it's profitable."</p>
+          <div class="proof-author">
+            <div class="proof-avatar" style="background:rgba(239,159,39,0.2);color:var(--amber-light);">KT</div>
+            <div>
+              <div class="proof-author-name">Kofi T.</div>
+              <div class="proof-author-detail">Ghana → Wharton applicant</div>
+            </div>
+          </div>
+        </div>
+        <div class="proof-add reveal" onclick="alert('Testimonial submission coming soon! Email us at stories@apexinitiatives.org')">
+          <div class="proof-add-icon">✦</div>
+          <p><strong>Add your story</strong></p>
+          <p>Share your APEX experience your words help the next student find their path.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT + TEAM -->
+  <section class="about-section" id="sec-about">
+    <div class="about-inner">
+      <div class="about-intro">
+        <div class="about-text">
+          <span class="section-tag">About us</span>
+          <h2>Built by students,<br>for students who <em>deserve more.</em></h2>
+          <p>APEX Initiatives was founded by a group of university students who noticed a pattern: the resources that changed their lives — prep courses, consulting, mentorship — were invisible to most of the world.</p>
+          <p>We're a fully student-led 501(c)(3) nonprofit. Every mentor is a current college student or recent graduate who's been exactly where our students are. No corporate gatekeeping. No fees. No compromise.</p>
+        </div>
+        <div class="about-values">
+          <div class="value-row reveal">
+            <div class="value-icon">⚡</div>
+            <div><div class="value-title">Peer-to-peer, always</div><div class="value-desc">Students trust students. We hire no corporate consultants every mentor has lived the experience they're sharing.</div></div>
+          </div>
+          <div class="value-row reveal">
+            <div class="value-icon">🌍</div>
+            <div><div class="value-title">Global by design</div><div class="value-desc">From Nigeria to Nicaragua, rural Texas to rural India if you have wifi and ambition, you're welcome here.</div></div>
+          </div>
+          <div class="value-row reveal">
+            <div class="value-icon">🔓</div>
+            <div><div class="value-title">Radical access</div><div class="value-desc">Free means free. No "freemium." No upsells. No premium tier. Every student gets the exact same quality of support.</div></div>
+          </div>
+          <div class="value-row reveal">
+            <div class="value-icon">🔄</div>
+            <div><div class="value-title">The flywheel</div><div class="value-desc">Students we help become mentors who help the next wave. The movement compounds itself.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-section">
+        <span class="section-tag">Leadership</span>
+        <h3 class="section-title reveal" style="font-size:clamp(22px,3vw,32px);">The people behind the mission</h3>
+        <div class="team-grid">
+          <div class="team-card reveal">
+            <div class="team-avatar" style="background:rgba(127,119,221,0.18);color:var(--purple-light);"><img src="" alt=""></div>
+            <div class="team-name">Executive Director</div>
+            <div class="team-role">Strategist</div>
+            <div class="team-school">Siddharth Dodda · Pine Creek High School</div>
+          </div>
+          <div class="team-card reveal">
+            <div class="team-avatar" style="background:rgba(29,158,117,0.18);color:var(--green-light);"><img src="" alt=""></div>
+            <div class="team-name">Director, APEX Health</div>
+            <div class="team-role">Healthcare Programs Lead</div>
+            <div class="team-school">Eric Huang · Pine Creek High School</div>
+          </div>
+          <div class="team-card reveal">
+            <div class="team-avatar" style="background:rgba(239,159,39,0.18);color:var(--amber-light);"><img src="" alt=""></div>
+            <div class="team-name">Director, APEX SAT</div>
+            <div class="team-role">Education Programs Lead</div>
+            <div class="team-school">Helan Wan · Pine Creek High School</div>
+          </div>
+          <div class="team-card reveal">
+            <div class="team-avatar" style="background:rgba(127,119,221,0.18);color:var(--purple-light);"><img src="" alt=""></div>
+            <div class="team-name">Director, APEX Business</div>
+            <div class="team-role">Business Programs Lead</div>
+            <div class="team-school">Rhythm Kasat · Pine Creek High School</div>
+          </div>
+           <div class="team-card reveal">
+            <div class="team-avatar" style="background:rgba(127,119,221,0.18);color:var(--purple-light);"><img src="" alt=""></div>
+            <div class="team-name">Chief Technology Officer</div>
+            <div class="team-role">Technology Programs Lead</div>
+            <div class="team-school">Monsf Tibin · Pine Creek High School</div>
+          </div>
+        </div>
+        <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:20px;">Contact: monsf.tibin@apexinitiatives.org</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOLUNTEER / MENTOR -->
+  <section class="volunteer-section" id="sec-volunteer">
+    <div class="vol-glow"></div>
+    <div class="volunteer-inner">
+      <div class="vol-left">
+        <span class="section-tag">Get involved</span>
+        <h2>Don't just witness the movement. <em>Lead it.</em></h2>
+        <p>If you've been to college — or you're in college — you have something a younger student desperately needs: lived experience they've never seen. We'll train you, support you, and give you a role that matters.</p>
+        <div class="vol-roles">
+          <div class="vol-role reveal" onclick="document.getElementById('vol-role-select').value='mentor'">
+            <div class="vol-role-icon">🎓</div>
+            <div><div class="vol-role-title">Subject Mentor</div><div class="vol-role-sub">1-on-1 academic tutoring & coaching</div></div>
+          </div>
+          <div class="vol-role reveal" onclick="document.getElementById('vol-role-select').value='consultant'">
+            <div class="vol-role-icon">📝</div>
+            <div><div class="vol-role-title">College Consultant</div><div class="vol-role-sub">Essay review, application strategy</div></div>
+          </div>
+          <div class="vol-role reveal" onclick="document.getElementById('vol-role-select').value='workshop'">
+            <div class="vol-role-icon">🎙️</div>
+            <div><div class="vol-role-title">Workshop Facilitator</div><div class="vol-role-sub">Lead group sessions & webinars</div></div>
+          </div>
+          <div class="vol-role reveal" onclick="document.getElementById('vol-role-select').value='operations'">
+            <div class="vol-role-icon">⚙️</div>
+            <div><div class="vol-role-title">Operations & Outreach</div><div class="vol-role-sub">Build the org behind the scenes</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="vol-form reveal">
+        <h3>Apply to join our team</h3>
+        <p>Takes 2 minutes. We respond within 48 hours.</p>
+        <div class="form-field"><label>Full name</label><input type="text" placeholder="Your name" /></div>
+        <div class="form-field"><label>Email address</label><input type="email" placeholder="you@email.com" /></div>
+        <div class="form-field"><label>University / Institution</label><input type="text" placeholder="Where do / did you study?" /></div>
+        <div class="form-field"><label>Role you're interested in</label>
+          <select id="vol-role-select">
+            <option value="">Select a role...</option>
+            <option value="mentor">Subject Mentor</option>
+            <option value="consultant">College Consultant</option>
+            <option value="workshop">Workshop Facilitator</option>
+            <option value="operations">Operations & Outreach</option>
+          </select>
+        </div>
+        <div class="form-field"><label>Which program branch?</label>
+          <select>
+            <option>APEX SAT / College Prep</option>
+            <option>APEX Health</option>
+            <option>APEX Business</option>
+            <option>Open to any</option>
+          </select>
+        </div>
+        <div class="form-field"><label>Why do you want to volunteer? (optional)</label><textarea placeholder="What drove you here?"></textarea></div>
+        <button class="btn-submit-green" onclick="alert('Application received! Our team will reach out within 48 hours. Thank you for wanting to be part of this.')">Submit application →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUPPORT / DONORS -->
+  <section class="support-section" id="sec-support">
+    <div class="support-inner">
+      <div class="support-header">
+        <span class="section-tag">Make it possible</span>
+        <h2>Back the students<br>who can't back <em>themselves yet.</em></h2>
+        <p>100% of donations fund student programming — no executive salaries, no overhead bloat. Just direct impact.</p>
+      </div>
+      <div class="support-ways">
+        <div class="support-way reveal">
+          <div class="support-way-icon">💛</div>
+          <h3>One-time donation</h3>
+          <p>$25 supports one student session. $100 funds a full workshop. $500 sponsors an entire cohort for a month.</p>
+          <button class="support-way-btn" onclick="document.getElementById('donate-widget').scrollIntoView({behavior:'smooth'})">Give now →</button>
+        </div>
+        <div class="support-way reveal">
+          <div class="support-way-icon">🔁</div>
+          <h3>Monthly giving</h3>
+          <p>Become a sustaining supporter and help us plan programming with reliable funding — as little as $10/month makes a difference.</p>
+          <button class="support-way-btn" onclick="alert('Monthly giving portal coming soon! Email us at donate@apexinitiatives.org')">Set up recurring →</button>
+        </div>
+        <div class="support-way reveal">
+          <div class="support-way-icon">🏢</div>
+          <h3>Institutional partnership</h3>
+          <p>Schools, foundations, companies, and universities can partner to co-deliver programming, sponsor cohorts, or refer students.</p>
+          <button class="support-way-btn" onclick="alert('Email us at partnerships@apexinitiatives.org — our team responds within 24 hours.')">Start a partnership →</button>
+        </div>
+      </div>
+
+      <div class="donate-widget reveal" id="donate-widget">
+        <h3 style="font-family:var(--font-head);font-size:20px;font-weight:700;margin-bottom:6px;">Choose your impact</h3>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">All donations are tax-deductible. 501(c)(3) EIN on request.</p>
+        <div class="donate-amounts">
+          <div class="donate-btn" onclick="selectDonate(this)">$25<span class="donate-label">1 student</span></div>
+          <div class="donate-btn selected" onclick="selectDonate(this)">$100<span class="donate-label">1 workshop</span></div>
+          <div class="donate-btn" onclick="selectDonate(this)">$250<span class="donate-label">1 month of tutoring</span></div>
+          <div class="donate-btn" onclick="selectDonate(this)">$500<span class="donate-label">Full cohort</span></div>
+        </div>
+        <div class="donate-input-row">
+          <input type="text" placeholder="Or enter a custom amount..." />
+          <button class="btn-donate" onclick="alert('Thank you for your generosity! Redirecting to secure payment portal...')">Donate now →</button>
+        </div>
+        <p class="tax-note">APEX Initiatives · 501(c)(3) Nonprofit · All donations are tax-deductible</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo">APEX <span>Initiatives</span></div>
+        <p>A student-led 501(c)(3) nonprofit bridging the access gap in college prep, healthcare, and business — globally, freely, permanently.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Programs</h4>
+        <a onclick="showBranch('sat')">APEX SAT</a>
+        <a onclick="showBranch('health')">APEX Health</a>
+        <a onclick="showBranch('biz')">APEX Business</a>
+        <a onclick="scrollToSection('journey')">Find my program</a>
+      </div>
+      <div class="footer-col">
+        <h4>Organization</h4>
+        <a onclick="scrollToSection('about')">About us</a>
+        <a onclick="scrollToSection('why')">Why we exist</a>
+        <a onclick="scrollToSection('volunteer')">Volunteer</a>
+        <a onclick="scrollToSection('proof')">Impact stories</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a onclick="scrollToSection('support')">Donate</a>
+        <a onclick="alert('Email: partnerships@apexinitiatives.org')">Partner with us</a>
+        <a onclick="alert('Contact: hello@apexinitiatives.org')">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 APEX Initiatives · 501(c)(3) · apexinitiatives.org</p>
+      <p>Built by students, for students.</p>
+    </div>
+  </footer>
+
+</div><!-- end page-home -->
+
+<!-- ══════════════ SAT PAGE ══════════════ -->
+<div id="page-sat" class="branch-page">
+  <div class="sat-hero">
+    <div class="sat-glow"></div>
+    <div class="branch-hero-tag pur">APEX SAT · College Readiness</div>
+    <h1 class="branch-h1">Top-percentile SAT prep.<br><span style="color:var(--purple-light)">Zero dollars. Zero excuses.</span></h1>
+    <p class="branch-sub">Structured study plans, AP tutoring, and college consulting from students admitted to the world's most competitive universities.</p>
+    <button class="btn-glow" onclick="document.getElementById('sat-signup').scrollIntoView({behavior:'smooth'})">Sign up — it's free →</button>
+  </div>
+  <div class="offerings-section" style="background:#0a0720;">
+    <div style="text-align:center;margin-bottom:36px;"><span class="section-tag">What's included</span></div>
+    <div class="offerings-grid">
+      <div class="offer-tile pur"><div class="offer-tile-tag pur">SAT Prep</div><h3>Full preparation program</h3><p>Structured study plans, timed practice tests, scoring strategy, and section-by-section coaching.</p></div>
+      <div class="offer-tile pur"><div class="offer-tile-tag pur">AP Tutoring</div><h3>Subject-specific AP support</h3><p>1-on-1 tutoring across AP subjects to earn college credit and strengthen your application profile.</p></div>
+      <div class="offer-tile pur"><div class="offer-tile-tag pur">College Consulting</div><h3>Application strategy</h3><p>School selection, essay brainstorming & review, financial aid navigation, and interview prep.</p></div>
+      <div class="offer-tile pur"><div class="offer-tile-tag pur">Webinars</div><h3>Live sessions</h3><p>Hear directly from students admitted to 15+ top universities — their journeys, rejections, and real advice.</p></div>
+      <div class="offer-tile pur"><div class="offer-tile-tag pur">Mentorship</div><h3>Ongoing 1-on-1 mentorship</h3><p>Paired with a mentor from Yale, Stanford, Harvard, MIT, or another top school who stays with you start to finish.</p></div>
+      <div class="offer-tile pur"><div class="offer-tile-tag pur">Community</div><h3>Peer study groups</h3><p>Connect with students at the same stage. Study together, hold each other accountable, celebrate wins together.</p></div>
+    </div>
+  </div>
+  <div class="signup-section" style="background:#08051e;" id="sat-signup">
+    <div class="signup-box pur">
+      <h2>Request your spot</h2>
+      <p>Tell us a little about yourself and we'll match you with the right program and mentor.</p>
+      <div class="signup-field"><input type="text" placeholder="Full name" /></div>
+      <div class="signup-field"><input type="email" placeholder="Email address" /></div>
+      <div class="signup-field"><input type="text" placeholder="Country / Location" /></div>
+      <div class="signup-field"><select><option>SAT prep (full program)</option><option>AP tutoring only</option><option>College consulting</option><option>Essay review</option><option>Webinars only</option></select></div>
+      <div class="signup-field"><input type="text" placeholder="Current SAT score (if any)" /></div>
+      <button class="btn-signup pur" onclick="alert('You\'re on the list! Expect an email within 2 business days matching you with a mentor.')">Request a spot →</button>
+    </div>
+  </div>
+  <div class="branch-back"><button class="back-btn" onclick="goHome()">← Back to APEX Initiatives</button></div>
+</div>
+
+<!-- ══════════════ HEALTH PAGE ══════════════ -->
+<div id="page-health" class="branch-page">
+  <div class="health-hero">
+    <div class="health-glow"></div>
+    <div class="branch-hero-tag grn">APEX Health · Healthcare Careers</div>
+    <h1 class="branch-h1">See what a healthcare career<br><span style="color:var(--green-light)">actually looks like.</span></h1>
+    <p class="branch-sub">Health literacy, pre-med mentorship, and real career exposure for students exploring medicine, nursing, and public health — all free.</p>
+    <button class="btn-glow" style="background:#0F6E56;" onclick="document.getElementById('health-signup').scrollIntoView({behavior:'smooth'})">Join for free →</button>
+  </div>
+  <div class="offerings-section" style="background:#061510;">
+    <div style="text-align:center;margin-bottom:36px;"><span class="section-tag">What's included</span></div>
+    <div class="offerings-grid">
+      <div class="offer-tile grn"><div class="offer-tile-tag grn">Workshops</div><h3>Health literacy workshops</h3><p>Nutrition, mental health, sleep, stress — practical, judgment-free, and taught in plain language.</p></div>
+      <div class="offer-tile grn"><div class="offer-tile-tag grn">Training</div><h3>First aid & CPR</h3><p>Certified first aid, CPR, and emergency preparedness training through partner organizations.</p></div>
+      <div class="offer-tile grn"><div class="offer-tile-tag grn">Mentorship</div><h3>Pre-health mentorship</h3><p>Paired with pre-med, nursing, or public health students who guide you through the full pathway.</p></div>
+      <div class="offer-tile grn"><div class="offer-tile-tag grn">Webinars</div><h3>Healthcare career panels</h3><p>Live sessions from students in medical, dental, PA, pharmacy, and public health programs.</p></div>
+      <div class="offer-tile grn"><div class="offer-tile-tag grn">Wellbeing</div><h3>Mental health support</h3><p>Peer support circles, coping workshops, and a bridge to professional mental health resources.</p></div>
+      <div class="offer-tile grn"><div class="offer-tile-tag grn">Resources</div><h3>Multilingual library</h3><p>Health education materials in multiple languages, available on-demand and always free.</p></div>
+    </div>
+  </div>
+  <div class="signup-section" style="background:#041209;" id="health-signup">
+    <div class="signup-box grn">
+      <h2>Join APEX Health</h2>
+      <p>No prerequisites, no applications. If you want to learn, you're in.</p>
+      <div class="signup-field"><input type="text" placeholder="Full name" /></div>
+      <div class="signup-field"><input type="email" placeholder="Email address" /></div>
+      <div class="signup-field"><input type="text" placeholder="Country / Location" /></div>
+      <div class="signup-field"><select><option>Health literacy workshops</option><option>First aid & CPR training</option><option>Pre-health mentorship</option><option>Career panels & webinars</option><option>Mental health support</option></select></div>
+      <button class="btn-signup grn" onclick="alert('Welcome to APEX Health! We\'ll reach out within 2 business days.')">Get started →</button>
+    </div>
+  </div>
+  <div class="branch-back" style="background:#041209;"><button class="back-btn" onclick="goHome()">← Back to APEX Initiatives</button></div>
+</div>
+
+<!-- ══════════════ BUSINESS PAGE ══════════════ -->
+<div id="page-biz" class="branch-page">
+  <div class="biz-hero">
+    <div class="biz-glow"></div>
+    <div class="branch-hero-tag amb">APEX Business · Finance & Entrepreneurship</div>
+    <h1 class="branch-h1">The business world has<br><span style="color:var(--amber-light)">a seat with your name on it.</span></h1>
+    <p class="branch-sub">Financial literacy, entrepreneurship bootcamps, career readiness, and mentorship into finance, consulting, and startups — for students who deserve to see what's possible.</p>
+    <button class="btn-glow" style="background:#854F0B;" onclick="document.getElementById('biz-signup').scrollIntoView({behavior:'smooth'})">Join for free →</button>
+  </div>
+  <div class="offerings-section" style="background:#100a00;">
+    <div style="text-align:center;margin-bottom:36px;"><span class="section-tag">What's included</span></div>
+    <div class="offerings-grid">
+      <div class="offer-tile amb"><div class="offer-tile-tag amb">Finance</div><h3>Financial literacy curriculum</h3><p>Budgeting, credit, investing, student loans, and taxes — taught in plain language with real examples you can act on.</p></div>
+      <div class="offer-tile amb"><div class="offer-tile-tag amb">Bootcamp</div><h3>Entrepreneurship bootcamp</h3><p>Develop a business idea, build a plan, create a brand, and pitch to a panel. Confidence as much as competence.</p></div>
+      <div class="offer-tile amb"><div class="offer-tile-tag amb">Career</div><h3>Career readiness training</h3><p>Resumes, cover letters, LinkedIn, networking, and interview skills to land your first internship or job.</p></div>
+      <div class="offer-tile amb"><div class="offer-tile-tag amb">Mentorship</div><h3>1-on-1 business mentorship</h3><p>Paired with business majors, young professionals, and founders who guide your path into the industry.</p></div>
+      <div class="offer-tile amb"><div class="offer-tile-tag amb">Compete</div><h3>Pitch nights & competitions</h3><p>Pitch competitions, case challenges, stock simulations, and mini-grants for student ventures.</p></div>
+      <div class="offer-tile amb"><div class="offer-tile-tag amb">Self-paced</div><h3>On-demand finance course</h3><p>A full curriculum covering personal finance to startup funding — available whenever, at your own pace.</p></div>
+    </div>
+  </div>
+  <div class="signup-section" style="background:#0d0900;" id="biz-signup">
+    <div class="signup-box amb">
+      <h2>Join APEX Business</h2>
+      <p>No fees. No applications. No prerequisites. If you want to learn, you're in.</p>
+      <div class="signup-field"><input type="text" placeholder="Full name" /></div>
+      <div class="signup-field"><input type="email" placeholder="Email address" /></div>
+      <div class="signup-field"><input type="text" placeholder="Country / Location" /></div>
+      <div class="signup-field"><select><option>Financial literacy</option><option>Entrepreneurship bootcamp</option><option>Career readiness</option><option>Business mentorship</option><option>Pitch competitions</option><option>Self-paced course</option></select></div>
+      <button class="btn-signup amb" onclick="alert('Welcome to APEX Business! We\'ll reach out within 2 business days.')">Get started →</button>
+    </div>
+  </div>
+  <div class="branch-back" style="background:#0d0900;"><button class="back-btn" onclick="goHome()">← Back to APEX Initiatives</button></div>
+</div>
+
+<script>
+// ——— SECTION / PAGE NAV ———
+function goHome() {
+  document.querySelectorAll('.section, .branch-page').forEach(el => el.classList.remove('active'));
+  document.getElementById('page-home').classList.add('active');
+  window.scrollTo(0, 0);
+  initReveal();
+}
+
+function showBranch(name) {
+  document.querySelectorAll('.section, .branch-page').forEach(el => el.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function scrollToSection(id) {
+  const map = {
+    why: 'sec-why', about: 'sec-about', proof: 'sec-proof',
+    stats: 'sec-stats', journey: 'sec-journey', volunteer: 'sec-volunteer',
+    support: 'sec-support', branches: 'sec-branches'
+  };
+  const targetId = map[id];
+  if (!targetId) return;
+  const home = document.getElementById('page-home');
+  if (!home.classList.contains('active')) {
+    goHome();
+    setTimeout(() => {
+      const el = document.getElementById(targetId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  } else {
+    const el = document.getElementById(targetId);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+// ——— VIDEO ———
+function loadVideo() {
+  const placeholder = document.getElementById('videoPlaceholder');
+  const iframe = document.getElementById('videoIframe');
+  // Swap in real YouTube embed URL when available
+  iframe.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1';
+  placeholder.style.display = 'none';
+  iframe.style.display = 'block';
+}
+
+// ——— JOURNEY ———
+function selectJourney(name, el) {
+  document.querySelectorAll('.prog-choice').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.journey-flow').forEach(f => f.classList.remove('active'));
+  const flow = document.getElementById('journey-' + name);
+  flow.classList.add('active');
+  setTimeout(() => {
+    const steps = flow.querySelectorAll('.journey-step');
+    steps.forEach((step, i) => {
+      setTimeout(() => step.classList.add('revealed'), i * 100);
+    });
+  }, 50);
+}
+
+// ——— DONATE SELECT ———
+function selectDonate(el) {
+  document.querySelectorAll('.donate-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// ——— COUNTER ANIMATION ———
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const duration = 1800;
+  const start = performance.now();
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = Math.round(eased * target);
+    el.textContent = current.toLocaleString() + suffix;
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+// ——— INTERSECTION OBSERVER ———
+let countersDone = false;
+function initReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        // Counters
+        const counters = entry.target.querySelectorAll('.counter');
+        if (counters.length && !countersDone) {
+          countersDone = true;
+          counters.forEach(c => animateCounter(c));
+        }
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => {
+    el.classList.remove('revealed');
+    observer.observe(el);
+  });
+
+  // Stats ribbon separate observer
+  const statsRibbon = document.getElementById('sec-stats');
+  if (statsRibbon) {
+    const statsObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !countersDone) {
+          countersDone = true;
+          document.querySelectorAll('.counter').forEach(c => animateCounter(c));
+          statsObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    statsObs.observe(statsRibbon);
+  }
+}
+
+// ——— NAV SCROLL TINT ———
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('nav');
+  if (window.scrollY > 40) {
+    nav.style.background = 'rgba(7,7,26,0.97)';
+  } else {
+    nav.style.background = 'rgba(7,7,26,0.85)';
+  }
+});
+
+// ——— INIT ———
+document.addEventListener('DOMContentLoaded', () => {
+  initReveal();
+});
+initReveal();
+</script>
+</body>
+</html>
