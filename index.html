@@ -911,9 +911,50 @@ textarea.form-control { height: 90px; resize: none; }
   </style>
 
   <!-- Supabase CDN (loaded before app.js) -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js">
-    const SUPABASE_URL  = https://yhieiuncjjdtiasiqaxo.supabase.co;
-const SUPABASE_ANON = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InloaWVpdW5jampkdGlhc2lxYXhvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2NDYxMTcsImV4cCI6MjA5MjIyMjExN30.ipeoPSe80NEOp2HNcJYZWh1-teFpEVw0UQ1If2e4hIk;
+  <script type="module">
+import { createBrowserClient, createServerClient } from "@supabase/ssr";
+import { NextResponse } from "next/server";
+
+const supabaseUrl = 'https://yhieiuncjjdtiasiqaxo.supabase.co';
+const supabaseKey = 'sb_publishable_p9tsDiJqYaplgfDN6gHSnA_ERjjyW9J';
+
+export const createBrowserSupabaseClient = () =>
+  createBrowserClient(
+    supabaseUrl,
+    supabaseKey,
+  );
+
+export const createServerSupabaseClient = (request) => {
+  // Create an unmodified response
+  let supabaseResponse = NextResponse.next({
+    request: {
+      headers: request.headers,
+    },
+  });
+
+  const supabase = createServerClient(
+    supabaseUrl,
+    supabaseKey,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll()
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
+          supabaseResponse = NextResponse.next({
+            request,
+          })
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options)
+          )
+        },
+      },
+    },
+  );
+
+  return supabaseResponse
+};
   </script>
 </head>
 <body>
