@@ -423,15 +423,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-async function testSupabase(){
+async function testSupabase() {
+    const { data, error } = await supabaseClient
+        .from("programs")
+        .select("*");
 
-const {data, error} = await supabaseClient
-.from("programs")
-.select("*");
-
-console.log(data);
-console.log(error);
-
+    console.log("Supabase Data:", data);
+    console.log("Supabase Error:", error);
 }
 
 testSupabase();
