@@ -1,0 +1,38 @@
+/* ============================================================
+   buttons.css
+   ============================================================ */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: none; border-radius: var(--radius); font-family: var(--font-body);
+  font-size: 14.5px; font-weight: 600; cursor: pointer; text-decoration: none;
+  padding: 12px 24px; line-height: 1; transition: background var(--ease), border-color var(--ease), transform var(--ease);
+}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn:active { transform: translateY(1px); }
+
+.btn-primary  { background: var(--brand); color: #fff; }
+.btn-primary:hover  { background: var(--brand-hover); }
+
+.btn-green    { background: var(--green-dark); color: #fff; }
+.btn-green:hover    { background: var(--green); }
+
+.btn-amber    { background: var(--amber-dark); color: #fff; }
+.btn-amber:hover    { background: var(--amber); }
+
+.btn-secondary {
+  background: var(--surface); color: var(--text); border: 1px solid var(--border);
+}
+.btn-secondary:hover { border-color: var(--faint); background: var(--surface-hover); }
+
+.btn-full { width: 100%; }
+.btn-sm { padding: 9px 18px; font-size: 13px; }
+
+.btn .btn-spinner {
+  display: none; width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff;
+  animation: spin 0.7s linear infinite;
+}
+.btn.loading .btn-spinner { display: block; }
+.btn.loading .btn-text { opacity: 0.65; }
+@keyframes spin { to { transform: rotate(360deg); } }
