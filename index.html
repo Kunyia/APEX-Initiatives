@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="APEX Initiatives is a student-run 501(c)(3) nonprofit offering free mentorship in college prep, healthcare careers, and business." />
+<title>APEX Initiatives</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/layout.css" />
+<link rel="stylesheet" href="css/components.css" />
+<link rel="stylesheet" href="css/buttons.css" />
+<link rel="stylesheet" href="css/forms.css" />
+<link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- ═══ MODAL ═══ -->
+<div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close dialog">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <div id="modal-dynamic-body"></div>
+
+    <div id="modal-contact-static" hidden>
+      <p class="modal-eyebrow purple">Get in touch</p>
+      <h2 class="modal-title" id="modal-title-contact">Ways to reach us</h2>
+      <div class="modal-info-row"><div class="modal-info-label">Partnerships</div><div class="modal-info-val">partnerships@apexinitiatives.org</div></div>
+      <div class="modal-info-row"><div class="modal-info-label">Donations</div><div class="modal-info-val">donate@apexinitiatives.org</div></div>
+      <div class="modal-info-row"><div class="modal-info-label">General questions</div><div class="modal-info-val">hello@apexinitiatives.org</div></div>
+      <div class="modal-actions" style="margin-top:20px">
+        <button class="btn btn-primary btn-sm" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<nav id="main-nav" class="nav" aria-label="Main navigation">
+  <button class="nav-logo" onclick="goHome()" aria-label="APEX Initiatives, go to homepage">
+    <span class="nav-logo-mark" aria-hidden="true">A</span>
+    APEX Initiatives
+  </button>
+
+  <div class="nav-center" role="menubar">
+    <div class="nav-dropdown" role="none">
+      <button class="nav-btn" role="menuitem" aria-haspopup="true" aria-expanded="false"
+              onmouseenter="this.parentElement.setAttribute('aria-expanded','true')"
+              onmouseleave="this.parentElement.setAttribute('aria-expanded','false')">
+        About <span class="arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="nav-menu" role="menu">
+        <button class="nav-menu-item" role="menuitem" onclick="scrollToSection('why')">Why we exist</button>
+        <button class="nav-menu-item" role="menuitem" onclick="scrollToSection('team')">Team</button>
+      </div>
+    </div>
+    <div class="nav-dropdown" role="none">
+      <button class="nav-btn" role="menuitem" aria-haspopup="true" aria-expanded="false"
+              onmouseenter="this.parentElement.setAttribute('aria-expanded','true')"
+              onmouseleave="this.parentElement.setAttribute('aria-expanded','false')">
+        Programs <span class="arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="nav-menu" role="menu" id="nav-programs-menu"></div>
+    </div>
+    <button class="nav-btn" role="menuitem" onclick="scrollToSection('volunteer')">Volunteer</button>
+    <button class="nav-btn" role="menuitem" onclick="scrollToSection('donate')">Donate</button>
+  </div>
+
+  <div class="nav-right">
+    <button class="btn btn-secondary btn-sm" onclick="showModal('contact')">Contact</button>
+    <button class="btn btn-primary btn-sm" onclick="scrollToSection('programs')">Get started</button>
+  </div>
+
+  <button class="nav-hamburger" id="hamburger" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+    <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+  <span class="mobile-menu-label">About</span>
+  <button class="mobile-menu-item" onclick="mobileNav('why')">Why we exist</button>
+  <button class="mobile-menu-item" onclick="mobileNav('team')">Team</button>
+  <div class="mobile-menu-divider"></div>
+  <span class="mobile-menu-label">Programs</span>
+  <div id="mobile-programs"></div>
+  <div class="mobile-menu-divider"></div>
+  <span class="mobile-menu-label">Get involved</span>
+  <button class="mobile-menu-item" onclick="mobileNav('volunteer')">Volunteer</button>
+  <button class="mobile-menu-item" onclick="mobileNav('donate')">Donate</button>
+  <button class="mobile-menu-item" onclick="showModal('contact')">Contact</button>
+</div>
+
+<main id="main-content">
+
+<!-- ═══ HOME ═══ -->
+<div id="page-home" class="page active">
+
+  <section class="hero" aria-label="Introduction">
+    <div class="container hero-inner">
+      <span class="eyebrow">Student-run · 501(c)(3) nonprofit</span>
+      <h1>Free mentorship in college prep, healthcare, and business.</h1>
+      <p class="hero-sub">
+        APEX Initiatives pairs students with volunteer mentors for one-on-one support.
+        There's no cost and no application fee.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="scrollToSection('programs')">See our programs</button>
+        <button class="btn btn-secondary" onclick="scrollToSection('volunteer')">Volunteer as a mentor</button>
+      </div>
+      <p class="hero-note">Every program is free. We don't charge students at any point.</p>
+    </div>
+  </section>
+
+  <section id="why" aria-labelledby="why-heading">
+    <div class="container split">
+      <div>
+        <blockquote class="pull-quote">
+          "I got into a school I was proud of. A friend just as capable didn't know where to start. The difference wasn't ability — it was access to information."
+          <cite>— APEX founder</cite>
+        </blockquote>
+      </div>
+      <div>
+        <span class="eyebrow">Why we exist</span>
+        <h2 id="why-heading" class="section-title">Test prep, consulting, and mentorship shouldn't depend on what your family can afford.</h2>
+        <p class="section-lead">
+          APEX was started by students who noticed that the resources that helped them most —
+          structured test prep, someone to review an essay, a mentor who'd already been through it —
+          were things most people never hear about, let alone pay for.
+        </p>
+        <p class="section-lead" style="margin-top:14px">
+          We run three programs, all volunteer-led and all free. If something's unclear about how any
+          of it works, <button onclick="showModal('contact')" style="background:none;border:none;padding:0;color:var(--brand);text-decoration:underline;cursor:pointer;font:inherit">reach out</button> — we're a small team and we read every message.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="programs" aria-labelledby="programs-heading">
+    <div class="container">
+      <span class="eyebrow">Programs</span>
+      <h2 id="programs-heading" class="section-title">Three areas, each free</h2>
+      <p class="section-lead">Pick the one that fits, or ask us if you're not sure.</p>
+      <div class="program-grid" id="program-grid"></div>
+    </div>
+  </section>
+
+  <section id="how" aria-labelledby="how-heading">
+    <div class="container container-sm">
+      <span class="eyebrow">How it works</span>
+      <h2 id="how-heading" class="section-title">What happens after you sign up</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div>
+            <div class="step-title">Fill out a short form</div>
+            <div class="step-body">Tell us which program you're interested in and a little about where you're starting from. It takes a couple of minutes.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div>
+            <div class="step-title">We match you with a mentor</div>
+            <div class="step-body">A volunteer mentor reaches out by email, usually within a couple of business days.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div>
+            <div class="step-title">You meet and go from there</div>
+            <div class="step-body">Sessions are scheduled directly between you and your mentor, at a pace that works for you.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="team" aria-labelledby="team-heading">
+    <div class="container">
+      <span class="eyebrow">Team</span>
+      <h2 id="team-heading" class="section-title">Who runs APEX</h2>
+      <p class="section-lead">APEX is organized by a small group of students who volunteer their time alongside school.</p>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar" aria-hidden="true">SD</div>
+          <div class="team-name">Siddharth Dodda</div>
+          <div class="team-role">Executive Director</div>
+          <div class="team-school">Pine Creek HS</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" aria-hidden="true">EH</div>
+          <div class="team-name">Eric Huang</div>
+          <div class="team-role">Director, APEX Health</div>
+          <div class="team-school">Pine Creek HS</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" aria-hidden="true">HW</div>
+          <div class="team-name">Helan Wan</div>
+          <div class="team-role">Director, APEX SAT</div>
+          <div class="team-school">Pine Creek HS</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" aria-hidden="true">RK</div>
+          <div class="team-name">Rhythm Kasat</div>
+          <div class="team-role">Director, APEX Business</div>
+          <div class="team-school">Pine Creek HS</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" aria-hidden="true">MT</div>
+          <div class="team-name">Monsf Tibin</div>
+          <div class="team-role">Chief Technology Officer</div>
+          <div class="team-school">Pine Creek HS</div>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-top:20px">
+        General questions: <a href="mailto:hello@apexinitiatives.org">hello@apexinitiatives.org</a>
+      </p>
+    </div>
+  </section>
+
+  <section id="volunteer" aria-labelledby="volunteer-heading">
+    <div class="container split">
+      <div>
+        <span class="eyebrow">Volunteer</span>
+        <h2 id="volunteer-heading" class="section-title">Mentor a student</h2>
+        <p class="section-lead">
+          If you're in college, or recently were, you can help a younger student figure out something
+          you once had to figure out yourself. We ask for a regular time commitment, not a big one.
+        </p>
+        <ul style="margin-top:24px;list-style:none;display:flex;flex-direction:column;gap:2px" aria-label="Volunteer roles">
+          <li class="value-row"><div><div class="value-title">Subject mentor</div><div class="value-desc">One-on-one academic tutoring and coaching.</div></div></li>
+          <li class="value-row"><div><div class="value-title">College consultant</div><div class="value-desc">Essay review and application strategy.</div></div></li>
+          <li class="value-row"><div><div class="value-title">Workshop facilitator</div><div class="value-desc">Lead group sessions and webinars.</div></div></li>
+          <li class="value-row"><div><div class="value-title">Operations & outreach</div><div class="value-desc">Help run things behind the scenes.</div></div></li>
+        </ul>
+      </div>
+
+      <div class="form-box">
+        <h2>Apply to volunteer</h2>
+        <p>We respond to every application within a couple of business days.</p>
+        <form id="form-volunteer" novalidate>
+          <div role="alert" class="form-alert" aria-live="polite"></div>
+
+          <div class="form-group">
+            <label for="vol-name">Full name <span class="required" aria-hidden="true">*</span></label>
+            <input class="form-control" type="text" id="vol-name" name="full_name" autocomplete="name" required />
+            <span class="field-error" data-error="full_name" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="vol-email">Email <span class="required" aria-hidden="true">*</span></label>
+            <input class="form-control" type="email" id="vol-email" name="email" autocomplete="email" required />
+            <span class="field-error" data-error="email" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="vol-institution">University or institution <span class="required" aria-hidden="true">*</span></label>
+            <input class="form-control" type="text" id="vol-institution" name="institution" placeholder="Where do or did you study?" required />
+            <span class="field-error" data-error="institution" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="vol-role-select">Role <span class="required" aria-hidden="true">*</span></label>
+            <select class="form-control" id="vol-role-select" name="role" required>
+              <option value="">Select a role…</option>
+              <option value="mentor">Subject mentor</option>
+              <option value="consultant">College consultant</option>
+              <option value="workshop">Workshop facilitator</option>
+              <option value="operations">Operations & outreach</option>
+            </select>
+            <span class="field-error" data-error="role" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="vol-branch">Program branch <span class="required" aria-hidden="true">*</span></label>
+            <select class="form-control" id="vol-branch" name="branch" required>
+              <option value="">Select a branch…</option>
+              <option value="sat">APEX SAT</option>
+              <option value="health">APEX Health</option>
+              <option value="biz">APEX Business</option>
+              <option value="any">Open to any</option>
+            </select>
+            <span class="field-error" data-error="branch" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="vol-why">Why do you want to volunteer? <span style="font-weight:400;color:var(--faint)">(optional)</span></label>
+            <textarea class="form-control" id="vol-why" name="why"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-check">
+              <input type="checkbox" name="consent" required />
+              <span class="form-check-label">
+                I agree to the <button type="button" onclick="showLegal('page-privacy')">privacy policy</button> and consent to APEX storing this information to process my application. <span class="required" aria-hidden="true">*</span>
+              </span>
+            </label>
+            <span class="field-error" data-error="consent" role="alert"></span>
+          </div>
+
+          <button type="submit" class="btn btn-green btn-full">
+            <span class="btn-text">Submit application</span>
+            <span class="btn-spinner" aria-hidden="true"></span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="donate" aria-labelledby="donate-heading">
+    <div class="container" style="text-align:center">
+      <span class="eyebrow">Donate</span>
+      <h2 id="donate-heading" class="section-title">Support the programs directly</h2>
+      <p class="section-lead" style="margin:0 auto 40px">
+        Donations go toward program costs — things like first aid certification fees and materials for workshops.
+        No one on the team draws a salary.
+      </p>
+
+      <div class="donate-widget">
+        <h3 style="font-size:20px">Choose an amount</h3>
+        <p style="font-size:13px;color:var(--muted);margin-top:4px">APEX is a registered 501(c)(3). Donations are tax-deductible; our EIN is available on request.</p>
+        <form id="form-donate" novalidate>
+          <div class="donate-amounts" role="group" aria-label="Donation amount">
+            <button type="button" class="donate-amount" data-amount="25" aria-pressed="false">$25</button>
+            <button type="button" class="donate-amount" data-amount="100" aria-pressed="false">$100</button>
+            <button type="button" class="donate-amount" data-amount="250" aria-pressed="false">$250</button>
+            <button type="button" class="donate-amount" data-amount="500" aria-pressed="false">$500</button>
+          </div>
+          <div class="donate-row">
+            <div class="form-group" style="flex:1;margin-bottom:0">
+              <label for="donate-custom" class="sr-only">Custom amount in USD</label>
+              <input class="form-control" type="number" id="donate-custom" min="1" placeholder="Or enter a custom amount" />
+            </div>
+            <button type="submit" class="btn btn-amber">
+              <span class="btn-text">Donate</span>
+              <span class="btn-spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+        </form>
+        <p class="donate-note">
+          Interested in giving monthly, or partnering as a school or organization?
+          <button onclick="showModal('contact')" style="background:none;border:none;padding:0;color:var(--brand);text-decoration:underline;cursor:pointer;font:inherit">Get in touch</button>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="cursor:default">
+          <span class="nav-logo-mark" aria-hidden="true">A</span>
+          APEX Initiatives
+        </div>
+        <p>A student-run 501(c)(3) nonprofit offering free mentorship in college prep, healthcare, and business.</p>
+      </div>
+      <nav aria-label="Programs" class="footer-col">
+        <h4>Programs</h4>
+        <div id="footer-programs"></div>
+      </nav>
+      <nav aria-label="Organization" class="footer-col">
+        <h4>Organization</h4>
+        <a onclick="scrollToSection('why')">Why we exist</a>
+        <a onclick="scrollToSection('team')">Team</a>
+        <a onclick="scrollToSection('volunteer')">Volunteer</a>
+      </nav>
+      <nav aria-label="Support" class="footer-col">
+        <h4>Support</h4>
+        <a onclick="scrollToSection('donate')">Donate</a>
+        <a onclick="showModal('contact')">Contact</a>
+        <a onclick="showLegal('page-privacy')">Privacy policy</a>
+        <a onclick="showLegal('page-terms')">Terms of service</a>
+      </nav>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2026 APEX Initiatives · 501(c)(3) nonprofit</p>
+      <div class="footer-links">
+        <a onclick="showLegal('page-privacy')">Privacy</a>
+        <a onclick="showLegal('page-terms')">Terms</a>
+        <a onclick="showModal('contact')">Contact</a>
+      </div>
+    </div>
+  </footer>
+</div><!-- /page-home -->
+
+<!-- ═══ BRANCH TEMPLATE (shared by all three programs, filled by app.js) ═══ -->
+<div id="page-branch" class="page">
+  <div class="branch-hero">
+    <div class="container">
+      <span class="branch-tag" id="branch-tag">Program</span>
+      <h1 class="branch-h1" id="branch-h1">Program tagline</h1>
+      <p id="branch-sub">Program description.</p>
+      <button class="btn btn-primary" id="branch-cta" onclick="document.getElementById('branch-signup').scrollIntoView({behavior:'smooth'})">Sign up — it's free</button>
+    </div>
+  </div>
+
+  <section aria-label="What's included">
+    <div class="container-sm">
+      <span class="eyebrow" style="text-align:center;display:block">What's included</span>
+      <div class="offer-grid" id="branch-offer-grid"></div>
+    </div>
+  </section>
+
+  <section id="branch-signup" aria-labelledby="branch-form-title">
+    <div class="container-sm">
+      <div class="form-box">
+        <h2 id="branch-form-title">Sign up</h2>
+        <p>Tell us a little about yourself and we'll follow up by email.</p>
+        <form id="form-branch" novalidate>
+          <div role="alert" class="form-alert" aria-live="polite"></div>
+          <div class="form-group">
+            <label for="branch-name">Full name <span class="required" aria-hidden="true">*</span></label>
+            <input class="form-control" type="text" id="branch-name" name="full_name" autocomplete="name" required />
+            <span class="field-error" data-error="full_name" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="branch-email">Email <span class="required" aria-hidden="true">*</span></label>
+            <input class="form-control" type="email" id="branch-email" name="email" autocomplete="email" required />
+            <span class="field-error" data-error="email" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="branch-country">Country or location <span class="required" aria-hidden="true">*</span></label>
+            <input class="form-control" type="text" id="branch-country" name="country" required />
+            <span class="field-error" data-error="country" role="alert"></span>
+          </div>
+          <div id="branch-extra-field"></div>
+          <button type="submit" class="btn btn-primary btn-full" id="branch-submit">
+            <span class="btn-text">Request a spot</span>
+            <span class="btn-spinner" aria-hidden="true"></span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <div class="page-back"><button class="back-btn" onclick="goHome()">← Back to APEX Initiatives</button></div>
+</div>
+
+<!-- ═══ PRIVACY ═══ -->
+<div id="page-privacy" class="page">
+  <div class="legal-page container-sm">
+    <h1>Privacy Policy</h1>
+    <p class="legal-date">Last updated: April 2026</p>
+    <h2>1. Who we are</h2>
+    <p>APEX Initiatives is a registered 501(c)(3) nonprofit based in the United States. "APEX," "we," or "us" in this policy refers to APEX Initiatives. Contact us at <a href="mailto:hello@apexinitiatives.org">hello@apexinitiatives.org</a>.</p>
+    <h2>2. What we collect</h2>
+    <p>Only what you give us through a form on this site: name, email, country or location, program interest, and optional fields like your SAT score or why you want to volunteer.</p>
+    <h2>3. How we use it</h2>
+    <p>To match you with a program, follow up on your application, and send occasional updates about APEX. We don't use your data for advertising or analytics profiling.</p>
+    <h2>4. Storage and security</h2>
+    <p>Your data is stored in Supabase, a SOC 2 Type II certified database provider. Connections are encrypted in transit and at rest. Access is limited to APEX leadership.</p>
+    <h2>5. Sharing</h2>
+    <p>We don't sell or rent your data. We don't share it with third parties except where required by law or to operate the database itself.</p>
+    <h2>6. Your rights</h2>
+    <p>You can access, correct, or request deletion of your data at any time by emailing <a href="mailto:hello@apexinitiatives.org">hello@apexinitiatives.org</a> with the subject "Data Request." We respond within 14 days.</p>
+    <h2>7. Cookies</h2>
+    <p>This site doesn't use tracking cookies or third-party analytics.</p>
+    <h2>8. Changes</h2>
+    <p>If this policy changes materially, we'll update the date above and notify users by email where possible.</p>
+    <div class="page-back" style="margin-top:20px"><button class="back-btn" onclick="goHome()">← Back to APEX Initiatives</button></div>
+  </div>
+</div>
+
+<!-- ═══ TERMS ═══ -->
+<div id="page-terms" class="page">
+  <div class="legal-page container-sm">
+    <h1>Terms of Service</h1>
+    <p class="legal-date">Last updated: April 2026</p>
+    <h2>1. Acceptance</h2>
+    <p>By using this site or signing up for a program, you agree to these terms.</p>
+    <h2>2. Our services</h2>
+    <p>APEX Initiatives provides free peer mentorship in college prep, healthcare exploration, and business education, run by volunteer student mentors.</p>
+    <h2>3. Eligibility</h2>
+    <p>Student programs are open worldwide with no academic prerequisite. Volunteer mentors must be 18 or older.</p>
+    <h2>4. Conduct</h2>
+    <p>Treat mentors, students, and staff with respect. Harassment or abuse results in removal from all programs.</p>
+    <h2>5. Availability</h2>
+    <p>We make reasonable efforts to match every applicant but can't guarantee placement, and schedules may change without notice.</p>
+    <h2>6. Disclaimer</h2>
+    <p>APEX provides educational guidance only. Nothing here is legal, medical, or financial advice.</p>
+    <h2>7. Limitation of liability</h2>
+    <p>APEX is a volunteer-run nonprofit. To the extent permitted by law, we're not liable for indirect or consequential damages from using our services.</p>
+    <h2>8. Governing law</h2>
+    <p>These terms are governed by the laws of the State of Colorado, United States.</p>
+    <h2>9. Contact</h2>
+    <p>Questions: <a href="mailto:hello@apexinitiatives.org">hello@apexinitiatives.org</a>.</p>
+    <div class="page-back" style="margin-top:20px"><button class="back-btn" onclick="goHome()">← Back to APEX Initiatives</button></div>
+  </div>
+</div>
+
+</main>
+
+<!-- Supabase client (public anon key only — see js/app.js for details) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/branches.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
