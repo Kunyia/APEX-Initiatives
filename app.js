@@ -13,24 +13,13 @@
 // in front-end code.
 //
 // Fill these in with your project's real values before deploying.
-const SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL = "https://yhieiuncjjdtiasiqaxo.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InloaWVpdW5jampkdGlhc2lxYXhvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2NDYxMTcsImV4cCI6MjA5MjIyMjExN30.ipeoPSe80NEOp2HNcJYZWh1-teFpEVw0UQ1If2e4hIk";
 
-let db = null;
-if (window.supabase && SUPABASE_URL.startsWith('http')) {
-  db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-} else {
-  console.info('Supabase isn\'t configured yet — form submissions will just log to the console.');
-}
-
-async function dbInsert(table, data) {
-  if (!db) {
-    console.log(`[no-op insert] ${table}:`, data);
-    return;
-  }
-  const { error } = await db.from(table).insert([data]);
-  if (error) throw error;
-}
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
 
 // ─── VALIDATION ────────────────────────────────────────────────────────────
 const RULES = {
@@ -431,3 +420,18 @@ document.addEventListener('DOMContentLoaded', () => {
     defaultAmount.setAttribute('aria-pressed', 'true');
   }
 });
+
+
+
+async function testSupabase(){
+
+const {data, error} = await supabaseClient
+.from("programs")
+.select("*");
+
+console.log(data);
+console.log(error);
+
+}
+
+testSupabase();
