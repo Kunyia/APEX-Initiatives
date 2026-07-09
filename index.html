@@ -308,44 +308,6 @@
     </div>
   </section>
 
-  <section id="donate" aria-labelledby="donate-heading">
-    <div class="container" style="text-align:center">
-      <span class="eyebrow">Donate</span>
-      <h2 id="donate-heading" class="section-title">Support the programs directly</h2>
-      <p class="section-lead" style="margin:0 auto 40px">
-        Donations go toward program costs — things like first aid certification fees and materials for workshops.
-        No one on the team draws a salary.
-      </p>
-
-      <div class="donate-widget">
-        <h3 style="font-size:20px">Choose an amount</h3>
-        <p style="font-size:13px;color:var(--muted);margin-top:4px">APEX is a registered 501(c)(3). Donations are tax-deductible; our EIN is available on request.</p>
-        <form id="form-donate" novalidate>
-          <div class="donate-amounts" role="group" aria-label="Donation amount">
-            <button type="button" class="donate-amount" data-amount="25" aria-pressed="false">$25</button>
-            <button type="button" class="donate-amount" data-amount="100" aria-pressed="false">$100</button>
-            <button type="button" class="donate-amount" data-amount="250" aria-pressed="false">$250</button>
-            <button type="button" class="donate-amount" data-amount="500" aria-pressed="false">$500</button>
-          </div>
-          <div class="donate-row">
-            <div class="form-group" style="flex:1;margin-bottom:0">
-              <label for="donate-custom" class="sr-only">Custom amount in USD</label>
-              <input class="form-control" type="number" id="donate-custom" min="1" placeholder="Or enter a custom amount" />
-            </div>
-            <button type="submit" class="btn btn-amber">
-              <span class="btn-text">Donate</span>
-              <span class="btn-spinner" aria-hidden="true"></span>
-            </button>
-          </div>
-        </form>
-        <p class="donate-note">
-          Interested in giving monthly, or partnering as a school or organization?
-          <button onclick="showModal('contact')" style="background:none;border:none;padding:0;color:var(--brand);text-decoration:underline;cursor:pointer;font:inherit">Get in touch</button>.
-        </p>
-      </div>
-    </div>
-  </section>
-
   <footer class="site-footer" aria-label="Site footer">
     <div class="container footer-grid">
       <div class="footer-brand">
@@ -364,13 +326,6 @@
         <a onclick="scrollToSection('why')">Why we exist</a>
         <a onclick="scrollToSection('team')">Team</a>
         <a onclick="scrollToSection('volunteer')">Volunteer</a>
-      </nav>
-      <nav aria-label="Support" class="footer-col">
-        <h4>Support</h4>
-        <a onclick="scrollToSection('donate')">Donate</a>
-        <a onclick="showModal('contact')">Contact</a>
-        <a onclick="showLegal('page-privacy')">Privacy policy</a>
-        <a onclick="showLegal('page-terms')">Terms of service</a>
       </nav>
     </div>
     <div class="container footer-bottom">
