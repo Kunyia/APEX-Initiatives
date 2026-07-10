@@ -296,7 +296,7 @@ function renderBranchPage(id) {
       showModal('volunteer');
     } catch (err) {
       console.error(err);
-      setFormAlert(alertEl, 'error', 'Submission failed. Try again, or email hello@apexinitiatives.org.');
+      setFormAlert(alertEl, 'error', 'Submission failed. Try again, or email apexinitiativespchs@gmail.com.');
     } finally {
       setLoading(submitBtn, false);
     }
@@ -361,13 +361,7 @@ const MODAL_COPY = {
     color: 'green',
     eyebrow: 'Application received',
     title: 'Thanks for applying.',
-    body: 'We review applications on a rolling basis and follow up by email either way. Questions: <strong>hello@apexinitiatives.org</strong>.',
-  }),
-  donate: () => ({
-    color: 'amber',
-    eyebrow: 'Donation · Thank you',
-    title: 'Thanks for the support.',
-    body: 'A receipt will be sent to the email associated with your payment. Questions: <strong>donate@apexinitiatives.org</strong>.',
+    body: 'We review applications on a rolling basis and follow up by email either way. Questions: <strong>apexinitiativespchs@gmail.com</strong>.',
   }),
   contact: () => null, // uses static markup
 };
